@@ -3,6 +3,29 @@
   
     
     <entry>
+      <title>说说UML</title>
+      <link href="/2018/04/15/%E8%AF%B4%E8%AF%B4UML/"/>
+      <url>/2018/04/15/%E8%AF%B4%E8%AF%B4UML/</url>
+      <content type="html"><![CDATA[<h3 id="UML——继承"><a href="#UML——继承" class="headerlink" title="UML——继承"></a>UML——继承</h3><p><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/%E7%BB%A7%E6%89%BFUML.JPG" alt=""></p><h3 id="UML——实现"><a href="#UML——实现" class="headerlink" title="UML——实现"></a>UML——实现</h3><p><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/%E5%AE%9E%E7%8E%B0UML.JPG" alt=""></p><h3 id="UML——聚合"><a href="#UML——聚合" class="headerlink" title="UML——聚合"></a>UML——聚合</h3><p><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/%E8%81%9A%E5%90%88UML.JPG" alt=""></p><blockquote><p>聚合表示持有对象，是一种一对多的关系，比如图中的Basket中定义了一个Fruits的数组，表示可以持有Fruit的多个对象</p></blockquote><h4 id="推荐链接"><a href="#推荐链接" class="headerlink" title="推荐链接"></a>推荐链接</h4><ul><li><a href="https://blog.csdn.net/qq_31655965/article/details/54645220" target="_blank" rel="noopener">https://blog.csdn.net/qq_31655965/article/details/54645220</a></li><li><a href="https://www.cnblogs.com/scevecn/p/5663369.html" target="_blank" rel="noopener">https://www.cnblogs.com/scevecn/p/5663369.html</a></li></ul>]]></content>
+      
+      <categories>
+          
+          <category> 设计模式 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 设计模式 </tag>
+            
+            <tag> UML </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>Java中的引用</title>
       <link href="/2018/04/13/Java%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8/"/>
       <url>/2018/04/13/Java%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8/</url>
