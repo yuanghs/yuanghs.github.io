@@ -339,6 +339,471 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/26/面向对象六大原则——单一职责原则/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雅客">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雅客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/26/面向对象六大原则——单一职责原则/" itemprop="url">面向对象六大原则——单一职责原则</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-26T14:19:44+08:00">
+                2018-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面向对象六大原则/" itemprop="url" rel="index">
+                    <span itemprop="name">面向对象六大原则</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/04/26/面向对象六大原则——单一职责原则/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://yoursite.com/2018/04/26/面向对象六大原则——单一职责原则/" class="cy_cmt_count" data-xid="2018/04/26/面向对象六大原则——单一职责原则/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,282
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="什么是单一职责原则-Single-Responsibility-Principle-SRP"><a href="#什么是单一职责原则-Single-Responsibility-Principle-SRP" class="headerlink" title="什么是单一职责原则(Single Responsibility Principle, SRP)"></a>什么是单一职责原则(Single Responsibility Principle, SRP)</h4><p>&emsp;在讲解什么是单一职责原则之前，我们先说一个例子，吊一下口味：我们在做项目的时候，会接触到用户，机构，角色管理这些模块，基本上使用的都是RBAC模型(Role-Based Access Control，基于角色的访问控制， 通过分配和取消角色来完成用户权限的授予和取消，使动作主体(用户)与资源的行为(权限)分离)。现在假设这样一种场景，我们把用户管理，修改用户信息，增加机构，增加角色等维护信息写到一个接口中进行管理，类图如下：<br><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/SRP-1.JPG" alt=""></p>
+<p>分析上面的类图我们会发现，这样的设计是非常不合理的，用户的属性和用户的行为是两种不同的业务模式，把它们都写在一个类中显然不行。我们应该把用户的信息抽取成一个BO(Business Object, 业务对象)， 把行为抽取成一个Biz(Business Logic, 业务逻辑)， 重新设计的类图如下：</p>
+<p><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/SRP-2.JPG" alt=""></p>
+<h4 id="SRP在类或接口中的使用"><a href="#SRP在类或接口中的使用" class="headerlink" title="SRP在类或接口中的使用"></a>SRP在类或接口中的使用</h4><p>&emsp;SRP的原话是：There should never be more than one reason for a class to change.翻译过来其实也很好懂：应该有且仅有一个原因引起类的变更。看下面的例子：</p>
+<p><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/SRP-3.JPG" alt=""></p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">上面的的类图对应的接口入下</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IPhone</span>&#123;</span><br><span class="line">  <span class="comment">//拨通电话</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dial</span>(<span class="params">String phoneNumber</span>)</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//通话</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">chat</span>(<span class="params">Object o</span>)</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//挂断电话</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hangup</span>(<span class="params"></span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在看到这个接口的时候，我们都会认为这样的设计是没有问题的，拨通电话，通话，挂断电话写在同一个接口里面并没有什么错。但是，我们仔细分析，这个接口真的没有问题吗？<strong>单一职责原则要求一个接口或类只有一个原因引起变化，也就是说一个接口或一个类只有一个原则，它就只负责一件事。</strong> 但我们分析上面这个接口，却发现它包含了两个职责：一个时协议管理，一个是数据传送。dial()和hangup()两个方法实现的是协议管理，分别是拨通电话和挂机。chat()实现的是数据传送，把我们说的话转换成模拟信号或数字信号传递给对方，然后再把对方传递过来的信号还原成我们听得懂的语言。这里的协议接通和数据传送的变化都会引起该接口或实现类的变化。我们想一想，这两个职责会相互影响吗？不管是什么协议，协议接通只负责将电话接通就行，而数据传输只需要传输数据，不必要去管协议是如何接通的。所以通过分析，IPhone接口包含了两个职责，而且这两个职责的变化不互相影响，这就可以考虑分成两个接口，类图如下：</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/SRP-4.JPG" alt=""></p>
+<blockquote>
+<p>观察上面的类图，我们发现这样的设计会比原来笼统的设计优雅的多，现在的设计在职责上比原来更加分明，让人一眼就能看出这个接口负责的是什么。也许有人会问，Phone这个类实现了两个接口，又把两个职责融合在了一个类中，那么是不是就有两个原因引起了它的变化了呢？别忘了，我们是面向接口编程，我们对外公布的是接口(API)，并非实现类，给你提供了模板，在接口层面已经为你明确了职责，那么具体的实现怎么弄就需要开发者去考虑了。</p>
+</blockquote>
+<h4 id="SRP也适用于方法"><a href="#SRP也适用于方法" class="headerlink" title="SRP也适用于方法"></a>SRP也适用于方法</h4><p>&emsp;其实，单一职责原则不仅适用于类，接口，同样适用于方法中。这要举一个例子了，比如我们做项目的时候会遇到修改用户信息这样的功能模块，我们一般的想法是将用户的所有数据都接收过来，比如用户名，信息，密码，家庭地址等等，然后统一封装到一个User对象中提交到数据库，我们一般都是这么干的，就如下面这样：<br><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/SRP-5.JPG" alt=""></p>
+<p>&emsp;其实这样的方法是不可取的，因为职责不明确，方法不明确，你到底是要修改密码，还是修改用户名，还是修改地址，还是都要修改？这样职责不明确的话在与其他项目成员沟通的时候会产生很多麻烦，正确的设计如下：<br><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/SRP-6.JPG" alt=""></p>
+<h4 id="SRP的优点"><a href="#SRP的优点" class="headerlink" title="SRP的优点"></a>SRP的优点</h4><ul>
+<li>类的复杂性降低，对于实现什么职责都有清晰明确的定义。</li>
+<li>可读性提高。</li>
+<li>可维护性提高。</li>
+<li>变更引起的风险降低，一个接口的修改只对相应的实现类有影响，对其他接口无影响，这对系统的扩展性，维护性都有非常大的帮助。</li>
+</ul>
+<h4 id="参考书籍"><a href="#参考书籍" class="headerlink" title="参考书籍"></a>参考书籍</h4><ul>
+<li>《设计模式之禅》</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+	<div>
+		
+	</div>
+	
+    
+
+    
+
+    <footer class="post-footer">
+
+   
+     <div>    
+      
+  </div>
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/26/面向对象六大原则——里式替换原则/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雅客">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雅客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/26/面向对象六大原则——里式替换原则/" itemprop="url">面向对象六大原则——里式替换原则</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-26T14:18:56+08:00">
+                2018-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面向对象六大原则/" itemprop="url" rel="index">
+                    <span itemprop="name">面向对象六大原则</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/04/26/面向对象六大原则——里式替换原则/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://yoursite.com/2018/04/26/面向对象六大原则——里式替换原则/" class="cy_cmt_count" data-xid="2018/04/26/面向对象六大原则——里式替换原则/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,530
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="说说继承"><a href="#说说继承" class="headerlink" title="说说继承"></a>说说继承</h4><p>&emsp;继承是面向对象三大特性之一，是一种非常优秀的语言机制，它有如下有点：</p>
+<ul>
+<li>代码共享，减少创建类的工作量，每个子类都拥有父类的方法和属性</li>
+<li>提高代码的重用性</li>
+<li>子类可以形似父类</li>
+<li>提高代码的可扩展性</li>
+<li>提高产品或项目的开放性</li>
+</ul>
+<p>&emsp;继承有它的优点，但是也有一些致命的缺点：</p>
+<ul>
+<li>继承具有侵入性，只要子类继承了父类，那么子类必须拥有父类的所有属性和方法</li>
+<li>降低了代码的灵活性</li>
+<li>增强了耦合性。当父类中发生方法，属性的修改时需要考虑子类是否修改，而且在缺乏规范的情况下，还可能发生大段的代码重构</li>
+</ul>
+<p>&emsp;正如前面所说，继承是面向对象非常优良的特性，使用继承有利也有弊，如何将继承的利最大化，弊最小化呢(这就是为什么说在开发时多用组合，少用继承)，解决方案就是引入里式替换原则。</p>
+<p><strong>举例说说继承的缺点</strong></p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//需要完成一个两数相减的功能，由类A来负责</span></span><br><span class="line"><span class="keyword">class</span> <span class="title">A</span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">func1</span>(<span class="params"><span class="keyword">int</span> a, <span class="keyword">int</span> b</span>)</span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> a-b;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Client</span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>)</span>&#123;  </span><br><span class="line">        A a = <span class="keyword">new</span> A();  </span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"100-50="</span>+a.func1(<span class="number">100</span>, <span class="number">50</span>));  </span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"100-80="</span>+a.func1(<span class="number">100</span>, <span class="number">80</span>));  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//结果：</span></span><br><span class="line"><span class="number">100</span><span class="number">-50</span>=<span class="number">50</span></span><br><span class="line"><span class="number">100</span><span class="number">-80</span>=<span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//现在增加一个功能：完成两数相加，然后再与100求和，由类B来负责</span></span><br><span class="line"><span class="keyword">class</span> <span class="title">B</span> <span class="title">extends</span> <span class="title">A</span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">func1</span>(<span class="params"><span class="keyword">int</span> a, <span class="keyword">int</span> b</span>)</span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> a+b;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">func2</span>(<span class="params"><span class="keyword">int</span> a, <span class="keyword">int</span> b</span>)</span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> func1(a,b)+<span class="number">100</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Client</span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span>(<span class="params">String[] args</span>)</span>&#123;  </span><br><span class="line">        B b = <span class="keyword">new</span> B();  </span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"100-50="</span>+b.func1(<span class="number">100</span>, <span class="number">50</span>));  </span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"100-80="</span>+b.func1(<span class="number">100</span>, <span class="number">80</span>));  </span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"100+20+100="</span>+b.func2(<span class="number">100</span>, <span class="number">20</span>));  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">结果：</span><br><span class="line"><span class="number">100</span><span class="number">-50</span>=<span class="number">150</span></span><br><span class="line"><span class="number">100</span><span class="number">-80</span>=<span class="number">180</span></span><br><span class="line"><span class="number">100</span>+<span class="number">20</span>+<span class="number">100</span>=<span class="number">220</span></span><br></pre></td></tr></table></figure>
+<p> &emsp;我们发现原本运行正常的相减功能发生了错误。原因就是类B在给方法起名时无意中重写了父类的方法，造成所有运行相减功能的代码全部调用了类B重写后的方法，造成原本运行正常的功能出现了错误。在本例中，引用基类A完成的功能，换成子类B之后，发生了异常。在实际编程中，我们常常会通过重写父类的方法来完成新的功能，这样写起来虽然简单，但是整个继承体系的可复用性会比较差，特别是运用多态比较频繁时，程序运行出错的几率非常大。(违反了里式替换原则)</p>
+<h4 id="什么是里式替换原则-LiskovSubstitution-Principle，-LSP"><a href="#什么是里式替换原则-LiskovSubstitution-Principle，-LSP" class="headerlink" title="什么是里式替换原则(LiskovSubstitution Principle， LSP)"></a>什么是里式替换原则(LiskovSubstitution Principle， LSP)</h4><ul>
+<li><p>第一种定义：如果对每一个类型为T1的对象o1，都有类型为T2的对象o2，使得以T1定义的所有程序P在所有的对象o1都替换成o2时，程序P的行为没有变化，那么类型T2是类型T1的子类型。</p>
+</li>
+<li><p>第二种定义：子类型必须能替换掉它们的基类型</p>
+</li>
+</ul>
+<p><strong>理解：</strong> 第二种定义相对来说更易于理解一些，通俗来说就是：只要父类出现的地方子类就可以出现，而且提换为子类也不会出现任何的错误和异常。但是反过来是不行的，有子类出现的地方，父类未必能替换。</p>
+<h4 id="LSP的深层含义"><a href="#LSP的深层含义" class="headerlink" title="LSP的深层含义"></a>LSP的深层含义</h4><p>&emsp;里式替换原则为良好的继承定义了一个规范，它包含四个深层含义：</p>
+<ul>
+<li><strong>子类必须完全实现父类的方法, 但不能覆盖(重写)父类的非抽象方法</strong>：这个规则相对来说是很好理解的，我们定义了一个接口或抽象类，我们必须在子类中完全实现所有的抽象方法，其实这时我们已经使用了里式替换原则</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span></span>;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">walk</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ....</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span></span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;...&#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span></span>&#123;...&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> calss test&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    A a = <span class="keyword">new</span> B();</span><br><span class="line">    a.run();</span><br><span class="line">    a.fly();</span><br><span class="line">    a.walk();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>子类可以增加自己特有的方法</strong></p>
+</li>
+<li><p><strong>当子类的方法重载父类的方法时，子类方法的前置条件（即方法的形参）要比父类方法的输入参数更宽松</strong></p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Father</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Collection <span class="title">doSomething</span><span class="params">(HashMap <span class="built_in">map</span>)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"父类被执行..."</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">map</span>.values();</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Son</span> <span class="title">extends</span> <span class="title">Father</span> &#123;</span></span><br><span class="line">    <span class="comment">// 放大输入参数类型</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Collection <span class="title">doSomething</span><span class="params">(Map <span class="built_in">map</span>)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"子类被执行..."</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">map</span>.values();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> &#123;</span></span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">invoker</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 父类存在的地方，子类就应该能够存在</span></span><br><span class="line">        <span class="comment">// Father f = new Father();</span></span><br><span class="line">        Son son = <span class="keyword">new</span> Son();</span><br><span class="line">        HashMap <span class="built_in">map</span> = <span class="keyword">new</span> HashMap();</span><br><span class="line">        son.doSomething(<span class="built_in">map</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        invoker();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">两个输出结果都是：父类被执行...</span><br><span class="line"></span><br><span class="line"><span class="comment">//假如将父类和子类的参数类型调换</span></span><br><span class="line">则 f.doSomething(<span class="built_in">map</span>) 输出结果为：父类被执行</span><br><span class="line">   son.doSomething(<span class="built_in">map</span>) 输出结果为：子类被执行</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>&emsp;解释如下：在上面的例子中，子类中的doSomething(Map map)和父类中的doSomething(HashMap map)两个方法构成重载(并不是重写，因为参数列表不同，子类继承父类那么相应的父类方法就存在于子类的生命周期中，所以构成重载)，而子类方法的形参范围比父类方法的形参范围要大。其实我们可以想一想，子类方法的形参范围比父类方法的形参范围要大，则子类代替父类传递参数到调用者中，子类的方法将永远不会被执行，这其实和里式交换原则是想符合的，父类的空间必须是子类的子区间，那么子类才能替换父类。而假如父类方法的形参范围大于子类方法的形参范围，子类方法在没有重写父类方法的前提下被执行了，这会引起业务逻辑的混乱，因为在实际应用中父类一般是抽象类，子类是实现类，你传递了一个这样的实现类就会“歪曲”父类的意图，引起一堆意想不到的逻辑混乱，所以子类中方法的前置条件必须与超类中被覆写的方法的前置条相同或更宽松。</p>
+</blockquote>
+<ul>
+<li><strong>当子类的方法实现父类的抽象方法时，方法的后置条件（即方法的返回值）要比父类更加严格</strong>： 如父类要求返回List，那么子类就应该返回List的实现ArrayList，父类是采用泛型，那么子类则不能采用泛型，而是具体的返回。</li>
+</ul>
+<h4 id="加深理解"><a href="#加深理解" class="headerlink" title="加深理解"></a>加深理解</h4><ul>
+<li><strong>其实通俗说来，里式替换原则就是：子类可以扩展父类的功能，但不能改变父类原有的功能</strong></li>
+<li><strong>当继承不能满足里式替换原则时应该进行重构</strong>：<ul>
+<li>把冲突的派生类与基类的共部分提取出来作为一个抽象基类，然后分别继承这个类。</li>
+<li>改变继承关系：从父子关系变为委托关系</li>
+</ul>
+</li>
+<li><strong>在类中调用其他类时务必要使用父类或接口， 如果不能使用父类或接口， 则说明类的设计已经违背了LSP原则</strong></li>
+<li><strong>如果子类不能完整地实现父类的方法， 或者父类的某些方法在子类中已经发生“畸变”， 则建议断开父子继承关系， 采用依赖、 聚集、 组合等关系代替继承</strong></li>
+</ul>
+<h4 id="多态与LSP是否矛盾"><a href="#多态与LSP是否矛盾" class="headerlink" title="多态与LSP是否矛盾"></a>多态与LSP是否矛盾</h4><p>&emsp;在学习Java里面的多态时，我们知道多态的前提就是要有子类继承父类并且子类重写父类的方法。那这是否和LSP矛盾呢？因为LSP要求我们只可以扩展父类的功能，但不能改变父类原有的功能，也就是不能对父类原有的方法进行重写，只能去实现父类的方法或重载。下面是我在知乎上找到的一种比较合理的解释：</p>
+<ul>
+<li>里式替换原则是针对继承而言的，如果继承是为了实现代码的重用，也就是为了共享方法，那么共享的父类方法就应该保持不变，不能被子类重新定义。子类只能通过添加新的方法来扩展功能，父类和子类都可以实例化，而子类继承的方法和父类是一样的，父类调用方法的地方，子类也可以调用同一个继承得来的，逻辑和父类一致的方法，这时就可以使用子类对象将父类对象替换掉。</li>
+<li>如果继承的目的是为了多态，而多态的前提就是子类重写父类的方法，为了符合LSP，我们应该将父类重新定义为抽象类，并定义抽象方法，让子类重新定义这些方法。由于父类是抽象类，所以父类不能被实例化，也就不存在可实例化的父类对象在程序里，就不存在子类替换父类时逻辑不一致的可能。</li>
+</ul>
+<p><strong>不符合LSP最常见的情况就是：父类和子类都是非抽象类，且父类的方法被子类重新定义，这样实现继承会造成子类和父类之间的强耦合，将不相关的属性和方法搅和在一起，不利于程序的维护和扩展。所以总结一句：尽量不要从可实例化的父类中继承，而是要使用基于抽象类和接口的继承(也就是面向接口和抽象编程)</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+	<div>
+		
+	</div>
+	
+    
+
+    
+
+    <footer class="post-footer">
+
+   
+     <div>    
+      
+  </div>
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/24/适配器模式——Adapter/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -516,221 +981,6 @@
 <h4 id="参考书籍"><a href="#参考书籍" class="headerlink" title="参考书籍"></a>参考书籍</h4><ul>
 <li>《设计模式之禅》</li>
 <li>《图解设计模式》</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-	<div>
-		
-	</div>
-	
-    
-
-    
-
-    <footer class="post-footer">
-
-   
-     <div>    
-      
-  </div>
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/23/面向对象的六大原则——单一职责原则/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雅客">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雅客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/23/面向对象的六大原则——单一职责原则/" itemprop="url">面向对象的六大原则——单一职责原则</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-23T19:08:44+08:00">
-                2018-04-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/面向对象六大原则/" itemprop="url" rel="index">
-                    <span itemprop="name">面向对象六大原则</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2018/04/23/面向对象的六大原则——单一职责原则/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/2018/04/23/面向对象的六大原则——单一职责原则/" class="cy_cmt_count" data-xid="2018/04/23/面向对象的六大原则——单一职责原则/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,282
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="什么是单一职责原则-Single-Responsibility-Principle-SRP"><a href="#什么是单一职责原则-Single-Responsibility-Principle-SRP" class="headerlink" title="什么是单一职责原则(Single Responsibility Principle, SRP)"></a>什么是单一职责原则(Single Responsibility Principle, SRP)</h4><p>&emsp;在讲解什么是单一职责原则之前，我们先说一个例子，吊一下口味：我们在做项目的时候，会接触到用户，机构，角色管理这些模块，基本上使用的都是RBAC模型(Role-Based Access Control，基于角色的访问控制， 通过分配和取消角色来完成用户权限的授予和取消，使动作主体(用户)与资源的行为(权限)分离)。现在假设这样一种场景，我们把用户管理，修改用户信息，增加机构，增加角色等维护信息写到一个接口中进行管理，类图如下：<br><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/SRP-1.JPG" alt=""></p>
-<p>分析上面的类图我们会发现，这样的设计是非常不合理的，用户的属性和用户的行为是两种不同的业务模式，把它们都写在一个类中显然不行。我们应该把用户的信息抽取成一个BO(Business Object, 业务对象)， 把行为抽取成一个Biz(Business Logic, 业务逻辑)， 重新设计的类图如下：</p>
-<p><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/SRP-2.JPG" alt=""></p>
-<h4 id="SRP在类或接口中的使用"><a href="#SRP在类或接口中的使用" class="headerlink" title="SRP在类或接口中的使用"></a>SRP在类或接口中的使用</h4><p>&emsp;SRP的原话是：There should never be more than one reason for a class to change.翻译过来其实也很好懂：应该有且仅有一个原因引起类的变更。看下面的例子：</p>
-<p><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/SRP-3.JPG" alt=""></p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">上面的的类图对应的接口入下</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IPhone</span>&#123;</span><br><span class="line">  <span class="comment">//拨通电话</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dial</span>(<span class="params">String phoneNumber</span>)</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//通话</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">chat</span>(<span class="params">Object o</span>)</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//挂断电话</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hangup</span>(<span class="params"></span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在看到这个接口的时候，我们都会认为这样的设计是没有问题的，拨通电话，通话，挂断电话写在同一个接口里面并没有什么错。但是，我们仔细分析，这个接口真的没有问题吗？<strong>单一职责原则要求一个接口或类只有一个原因引起变化，也就是说一个接口或一个类只有一个原则，它就只负责一件事。</strong> 但我们分析上面这个接口，却发现它包含了两个职责：一个时协议管理，一个是数据传送。dial()和hangup()两个方法实现的是协议管理，分别是拨通电话和挂机。chat()实现的是数据传送，把我们说的话转换成模拟信号或数字信号传递给对方，然后再把对方传递过来的信号还原成我们听得懂的语言。这里的协议接通和数据传送的变化都会引起该接口或实现类的变化。我们想一想，这两个职责会相互影响吗？不管是什么协议，协议接通只负责将电话接通就行，而数据传输只需要传输数据，不必要去管协议是如何接通的。所以通过分析，IPhone接口包含了两个职责，而且这两个职责的变化不互相影响，这就可以考虑分成两个接口，类图如下：</p>
-</blockquote>
-<p><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/SRP-4.JPG" alt=""></p>
-<blockquote>
-<p>观察上面的类图，我们发现这样的设计会比原来笼统的设计优雅的多，现在的设计在职责上比原来更加分明，让人一眼就能看出这个接口负责的是什么。也许有人会问，Phone这个类实现了两个接口，又把两个职责融合在了一个类中，那么是不是就有两个原因引起了它的变化了呢？别忘了，我们是面向接口编程，我们对外公布的是接口(API)，并非实现类，给你提供了模板，在接口层面已经为你明确了职责，那么具体的实现怎么弄就需要开发者去考虑了。</p>
-</blockquote>
-<h4 id="SRP也适用于方法"><a href="#SRP也适用于方法" class="headerlink" title="SRP也适用于方法"></a>SRP也适用于方法</h4><p>&emsp;其实，单一职责原则不仅适用于类，接口，同样适用于方法中。这要举一个例子了，比如我们做项目的时候会遇到修改用户信息这样的功能模块，我们一般的想法是将用户的所有数据都接收过来，比如用户名，信息，密码，家庭地址等等，然后统一封装到一个User对象中提交到数据库，我们一般都是这么干的，就如下面这样：<br><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/SRP-5.JPG" alt=""></p>
-<p>&emsp;其实这样的方法是不可取的，因为职责不明确，方法不明确，你到底是要修改密码，还是修改用户名，还是修改地址，还是都要修改？这样职责不明确的话在与其他项目成员沟通的时候会产生很多麻烦，正确的设计如下：<br><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/SRP-6.JPG" alt=""></p>
-<h4 id="SRP的优点"><a href="#SRP的优点" class="headerlink" title="SRP的优点"></a>SRP的优点</h4><ul>
-<li>类的复杂性降低，对于实现什么职责都有清晰明确的定义。</li>
-<li>可读性提高。</li>
-<li>可维护性提高。</li>
-<li>变更引起的风险降低，一个接口的修改只对相应的实现类有影响，对其他接口无影响，这对系统的扩展性，维护性都有非常大的帮助。</li>
-</ul>
-<h4 id="参考书籍"><a href="#参考书籍" class="headerlink" title="参考书籍"></a>参考书籍</h4><ul>
-<li>《设计模式之禅》</li>
 </ul>
 
           
@@ -2248,7 +2498,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2270,7 +2520,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/about/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2340,7 +2590,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">18.2k</span>
+    <span title="Site words total count">20.7k</span>
   
 </div>
 
@@ -2367,7 +2617,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共18.2k字</span>
+  <span class="post-count">博客全站共20.7k字</span>
 </div>
 
 
