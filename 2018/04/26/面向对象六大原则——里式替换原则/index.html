@@ -130,7 +130,7 @@
 <meta property="og:site_name" content="雅客">
 <meta property="og:description" content="说说继承&amp;emsp;继承是面向对象三大特性之一，是一种非常优秀的语言机制，它有如下有点：  代码共享，减少创建类的工作量，每个子类都拥有父类的方法和属性 提高代码的重用性 子类可以形似父类 提高代码的可扩展性 提高产品或项目的开放性  &amp;emsp;继承有它的优点，但是也有一些致命的缺点：  继承具有侵入性，只要子类继承了父类，那么子类必须拥有父类的所有属性和方法 降低了代码的灵活性 增强了耦合性。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-26T09:46:54.124Z">
+<meta property="og:updated_time" content="2018-04-26T10:16:32.703Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面向对象六大原则——里式替换原则">
 <meta name="twitter:description" content="说说继承&amp;emsp;继承是面向对象三大特性之一，是一种非常优秀的语言机制，它有如下有点：  代码共享，减少创建类的工作量，每个子类都拥有父类的方法和属性 提高代码的重用性 子类可以形似父类 提高代码的可扩展性 提高产品或项目的开放性  &amp;emsp;继承有它的优点，但是也有一些致命的缺点：  继承具有侵入性，只要子类继承了父类，那么子类必须拥有父类的所有属性和方法 降低了代码的灵活性 增强了耦合性。">
@@ -434,7 +434,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,530
+                  2,559
                 </span>
               
 
@@ -526,10 +526,15 @@
 </ul>
 <h4 id="多态与LSP是否矛盾"><a href="#多态与LSP是否矛盾" class="headerlink" title="多态与LSP是否矛盾"></a>多态与LSP是否矛盾</h4><p>&emsp;在学习Java里面的多态时，我们知道多态的前提就是要有子类继承父类并且子类重写父类的方法。那这是否和LSP矛盾呢？因为LSP要求我们只可以扩展父类的功能，但不能改变父类原有的功能，也就是不能对父类原有的方法进行重写，只能去实现父类的方法或重载。下面是我在知乎上找到的一种比较合理的解释：</p>
 <ul>
-<li>里式替换原则是针对继承而言的，如果继承是为了实现代码的重用，也就是为了共享方法，那么共享的父类方法就应该保持不变，不能被子类重新定义。子类只能通过添加新的方法来扩展功能，父类和子类都可以实例化，而子类继承的方法和父类是一样的，父类调用方法的地方，子类也可以调用同一个继承得来的，逻辑和父类一致的方法，这时就可以使用子类对象将父类对象替换掉。</li>
+<li>里式替换原则是针对继承而言的，如果继承是为了实现代码的重用，也 就是为了共享方法，那么共享的父类方法就应该保持不变，不能被子类重新定义。子类只能通过添加新的方法来扩展功能，父类和子类都可以实例化，而子类继承的方法和父类是一样的，父类调用方法的地方，子类也可以调用同一个继承得来的，逻辑和父类一致的方法，这时就可以使用子类对象将父类对象替换掉。</li>
 <li>如果继承的目的是为了多态，而多态的前提就是子类重写父类的方法，为了符合LSP，我们应该将父类重新定义为抽象类，并定义抽象方法，让子类重新定义这些方法。由于父类是抽象类，所以父类不能被实例化，也就不存在可实例化的父类对象在程序里，就不存在子类替换父类时逻辑不一致的可能。</li>
 </ul>
 <p><strong>不符合LSP最常见的情况就是：父类和子类都是非抽象类，且父类的方法被子类重新定义，这样实现继承会造成子类和父类之间的强耦合，将不相关的属性和方法搅和在一起，不利于程序的维护和扩展。所以总结一句：尽量不要从可实例化的父类中继承，而是要使用基于抽象类和接口的继承(也就是面向接口和抽象编程)</strong></p>
+<h4 id="参考书籍与网站"><a href="#参考书籍与网站" class="headerlink" title="参考书籍与网站"></a>参考书籍与网站</h4><ul>
+<li>《设计模式之禅》</li>
+<li><a href="https://blog.csdn.net/zhengzhb/article/details/7281833" target="_blank" rel="noopener">https://blog.csdn.net/zhengzhb/article/details/7281833</a></li>
+<li><a href="https://blog.csdn.net/tjiyu/article/details/76551307" target="_blank" rel="noopener">https://blog.csdn.net/tjiyu/article/details/76551307</a></li>
+</ul>
 
       
     </div>
@@ -788,7 +793,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#说说继承"><span class="nav-number">1.</span> <span class="nav-text">说说继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是里式替换原则-LiskovSubstitution-Principle，-LSP"><span class="nav-number">2.</span> <span class="nav-text">什么是里式替换原则(LiskovSubstitution Principle， LSP)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LSP的深层含义"><span class="nav-number">3.</span> <span class="nav-text">LSP的深层含义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加深理解"><span class="nav-number">4.</span> <span class="nav-text">加深理解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多态与LSP是否矛盾"><span class="nav-number">5.</span> <span class="nav-text">多态与LSP是否矛盾</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#说说继承"><span class="nav-number">1.</span> <span class="nav-text">说说继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是里式替换原则-LiskovSubstitution-Principle，-LSP"><span class="nav-number">2.</span> <span class="nav-text">什么是里式替换原则(LiskovSubstitution Principle， LSP)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LSP的深层含义"><span class="nav-number">3.</span> <span class="nav-text">LSP的深层含义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加深理解"><span class="nav-number">4.</span> <span class="nav-text">加深理解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多态与LSP是否矛盾"><span class="nav-number">5.</span> <span class="nav-text">多态与LSP是否矛盾</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考书籍与网站"><span class="nav-number">6.</span> <span class="nav-text">参考书籍与网站</span></a></li></ol></div>
             
 
           </div>
