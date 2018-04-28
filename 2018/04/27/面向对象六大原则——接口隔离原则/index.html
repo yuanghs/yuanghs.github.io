@@ -109,7 +109,7 @@
 
 
 
-  <meta name="keywords" content="项目,开发," />
+  <meta name="keywords" content="设计模式,面向对象,六大原则,读书笔记,接口," />
 
 
 
@@ -122,23 +122,21 @@
 
 
 
-<meta name="description" content="项目介绍&amp;emsp;”HelloBird”是一个基于微信小程序搭建的资源回收o2o平台，目的是为了实现废旧资源的流转。在”HelloBird”中，用户可以轻松的获取生活垃圾的基本信息，并能根据自己的实际情况便捷考虑是否将废品出售，在用户选择好要出售的废品并提交订单之后，系统将自动派送回收员上门服务，收取废品，使用户足不出户就能将生活中的垃圾得到妥善处理，还能获得一定的收益，并且实现了资源的再利用。">
-<meta name="keywords" content="项目,开发">
+<meta name="description" content="什么是接口隔离原则(Interface  Segregation Principle, ISP)&amp;emsp;接口对于Java开发者来说都不陌生，它几乎存在于每一个Java程序中，是抽象的代名词。在讲接口隔离原则之前，先说说接口，接口分为以下两种：  实例接口(Object Interface)： 在Java中声明一个类，然后用new关键字产生一个实例，是对一个类型的事物的描述，这就是一种接口。或许">
+<meta name="keywords" content="设计模式,面向对象,六大原则,读书笔记,接口">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HelloBird——资源回收o2o平台">
-<meta property="og:url" content="http://yoursite.com/2018/04/21/HelloBird——资源回收o2o平台/index.html">
+<meta property="og:title" content="面向对象六大原则——接口隔离原则">
+<meta property="og:url" content="http://yoursite.com/2018/04/27/面向对象六大原则——接口隔离原则/index.html">
 <meta property="og:site_name" content="雅客">
-<meta property="og:description" content="项目介绍&amp;emsp;”HelloBird”是一个基于微信小程序搭建的资源回收o2o平台，目的是为了实现废旧资源的流转。在”HelloBird”中，用户可以轻松的获取生活垃圾的基本信息，并能根据自己的实际情况便捷考虑是否将废品出售，在用户选择好要出售的废品并提交订单之后，系统将自动派送回收员上门服务，收取废品，使用户足不出户就能将生活中的垃圾得到妥善处理，还能获得一定的收益，并且实现了资源的再利用。">
+<meta property="og:description" content="什么是接口隔离原则(Interface  Segregation Principle, ISP)&amp;emsp;接口对于Java开发者来说都不陌生，它几乎存在于每一个Java程序中，是抽象的代名词。在讲接口隔离原则之前，先说说接口，接口分为以下两种：  实例接口(Object Interface)： 在Java中声明一个类，然后用new关键字产生一个实例，是对一个类型的事物的描述，这就是一种接口。或许">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://raw.githubusercontent.com/yuanghs/pictures/master/HelloBird-1.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/yuanghs/pictures/master/HelloBird-2.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/yuanghs/pictures/master/HelloBird-3.JPG">
-<meta property="og:image" content="https://raw.githubusercontent.com/yuanghs/pictures/master/HelloBird-4.jpg">
-<meta property="og:updated_time" content="2018-04-22T05:33:37.164Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuanghs/pictures/master/ISP-1.JPG">
+<meta property="og:image" content="https://raw.githubusercontent.com/yuanghs/pictures/master/ISP-2.JPG">
+<meta property="og:updated_time" content="2018-04-28T09:45:31.519Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HelloBird——资源回收o2o平台">
-<meta name="twitter:description" content="项目介绍&amp;emsp;”HelloBird”是一个基于微信小程序搭建的资源回收o2o平台，目的是为了实现废旧资源的流转。在”HelloBird”中，用户可以轻松的获取生活垃圾的基本信息，并能根据自己的实际情况便捷考虑是否将废品出售，在用户选择好要出售的废品并提交订单之后，系统将自动派送回收员上门服务，收取废品，使用户足不出户就能将生活中的垃圾得到妥善处理，还能获得一定的收益，并且实现了资源的再利用。">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/yuanghs/pictures/master/HelloBird-1.jpg">
+<meta name="twitter:title" content="面向对象六大原则——接口隔离原则">
+<meta name="twitter:description" content="什么是接口隔离原则(Interface  Segregation Principle, ISP)&amp;emsp;接口对于Java开发者来说都不陌生，它几乎存在于每一个Java程序中，是抽象的代名词。在讲接口隔离原则之前，先说说接口，接口分为以下两种：  实例接口(Object Interface)： 在Java中声明一个类，然后用new关键字产生一个实例，是对一个类型的事物的描述，这就是一种接口。或许">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/yuanghs/pictures/master/ISP-1.JPG">
 
 
 
@@ -168,13 +166,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/21/HelloBird——资源回收o2o平台/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/27/面向对象六大原则——接口隔离原则/"/>
 
 
 
 
 
-  <title>HelloBird——资源回收o2o平台 | 雅客</title>
+  <title>面向对象六大原则——接口隔离原则 | 雅客</title>
   
 
 
@@ -345,7 +343,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/21/HelloBird——资源回收o2o平台/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/27/面向对象六大原则——接口隔离原则/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="雅客">
@@ -362,7 +360,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">HelloBird——资源回收o2o平台</h1>
+          <h1 class="post-title" itemprop="name headline">面向对象六大原则——接口隔离原则</h1>
         
 
         <div class="post-meta">
@@ -374,8 +372,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-21T16:54:05+08:00">
-                2018-04-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-27T16:29:36+08:00">
+                2018-04-27
               </time>
             
 
@@ -397,8 +395,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/我的项目/" itemprop="url" rel="index">
-                    <span itemprop="name">我的项目</span>
+                  <a href="/categories/面向对象六大原则/" itemprop="url" rel="index">
+                    <span itemprop="name">面向对象六大原则</span>
                   </a>
                 </span>
 
@@ -416,8 +414,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2018/04/21/HelloBird——资源回收o2o平台/#SOHUCS" itemprop="discussionUrl">
-                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/04/21/HelloBird——资源回收o2o平台/" itemprop="commentsCount"></span>
+                <a href="/2018/04/27/面向对象六大原则——接口隔离原则/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/04/27/面向对象六大原则——接口隔离原则/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -439,7 +437,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,597
+                  2,166
                 </span>
               
 
@@ -455,7 +453,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  6
+                  8
                 </span>
               
             </div>
@@ -476,51 +474,39 @@
       
 
       
-        <h4 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h4><p>&emsp;”HelloBird”是一个基于微信小程序搭建的资源回收o2o平台，目的是为了实现废旧资源的流转。在”HelloBird”中，用户可以轻松的获取生活垃圾的基本信息，并能根据自己的实际情况便捷考虑是否将废品出售，在用户选择好要出售的废品并提交订单之后，系统将自动派送回收员上门服务，收取废品，使用户足不出户就能将生活中的垃圾得到妥善处理，还能获得一定的收益，并且实现了资源的再利用。</p>
-<p><strong>功能需求如下</strong>：</p>
-<p><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/HelloBird-1.jpg" alt=""></p>
-<h4 id="项目架构"><a href="#项目架构" class="headerlink" title="项目架构"></a>项目架构</h4><p>&emsp;”HelloBird”项目客户端采用微信web平台，使用JavaEE做后台架构，数据采用的是关系型数据库MySQL。在后台架构上，采用SSM(Spring+SpringMVC+Mybatis)框架，Mybatis负责持久层操作，SpringMVC作为前端控制器，处理前台和后台的交互，Spring作为IOC容器，为Mybatis和SpringMVC提供支持(事物操作等)。</p>
-<p><strong>架构图如下</strong>：</p>
-<p><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/HelloBird-2.jpg" alt=""></p>
-<p><strong>页面逻辑图如下</strong>：<br><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/HelloBird-3.JPG" alt=""></p>
-<h4 id="项目中遇到的问题"><a href="#项目中遇到的问题" class="headerlink" title="项目中遇到的问题"></a>项目中遇到的问题</h4><ul>
-<li><strong>使用json进行前后台数据交互的格式：</strong> 该项目使用json作为前后台数据传输的格式，SpringMVC的两个注解非常友好的帮我进行封装于实现，封闭式@ResponseBody和@RequestBody，@ResponseBody负责将数据包装成json字符串返回给前台，@RequestBody则将从前台接收到的数据包装成对应的JavaBean对象。在使用过程中，出现了中文字符乱码问题，后来进行了解决。</li>
+        <h4 id="什么是接口隔离原则-Interface-Segregation-Principle-ISP"><a href="#什么是接口隔离原则-Interface-Segregation-Principle-ISP" class="headerlink" title="什么是接口隔离原则(Interface  Segregation Principle, ISP)"></a>什么是接口隔离原则(Interface  Segregation Principle, ISP)</h4><p>&emsp;接口对于Java开发者来说都不陌生，它几乎存在于每一个Java程序中，是抽象的代名词。在讲接口隔离原则之前，先说说接口，接口分为以下两种：</p>
+<ul>
+<li><strong>实例接口(Object Interface)：</strong> 在Java中声明一个类，然后用new关键字产生一个实例，是对一个类型的事物的描述，这就是一种接口。或许我们乍一看会有点懵，怎么和我们原来学习的接口不一样呢，其实我们这样想，我们都知道，在Java中有一个Class类，表示正在运行的类和接口，换句话说每一个正在运行时的类或接口都是Class类的对象，这是一种向上的抽象。接口是一种更为抽象的定义，类是一类相同事物的描述集合，那为什么不可以抽象为一个接口呢？</li>
+<li><strong>类接口(Class Interface)：</strong> 这就是我们经常使用的用interface定义的接口</li>
 </ul>
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">1. 使用如下配置可解决字符乱码问题(全局设置)：</span><br><span class="line"><span class="variable">&lt;mvc:annotation-driven&gt;</span></span><br><span class="line">      <span class="variable">&lt;mvc:message-converters&gt;</span></span><br><span class="line">            <span class="variable">&lt;bean class="org.springframework.http.converter.StringHttpMessageConverter"&gt;</span></span><br><span class="line">                <span class="variable">&lt;property name="supportedMediaTypes"&gt;</span></span><br><span class="line">                    <span class="variable">&lt;list&gt;</span></span><br><span class="line">                        <span class="variable">&lt;value&gt;</span>application/json;charset=UTF-8<span class="variable">&lt;/value&gt;</span></span><br><span class="line">                    <span class="variable">&lt;/list&gt;</span></span><br><span class="line">                <span class="variable">&lt;/property&gt;</span></span><br><span class="line">            <span class="variable">&lt;/bean&gt;</span></span><br><span class="line">        <span class="variable">&lt;/mvc:message-converters&gt;</span></span><br><span class="line">    <span class="variable">&lt;/mvc:annotation-driven&gt;</span></span><br><span class="line"></span><br><span class="line">2.使用produces = <span class="string">"text/html;charset=UTF-8"</span>也能解决中文乱码问题</span><br><span class="line"><span class="meta">@RequestMapping(value</span> = <span class="string">"/regist"</span>, method = RequestMethod.POST,  produces = <span class="string">"text/html;charset=UTF-8"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line">public Map<span class="variable">&lt;Integer, Object&gt;</span> regist(<span class="meta">@RequestBody</span> User user)&#123;</span><br><span class="line"></span><br><span class="line">    Map<span class="variable">&lt;Integer, Object&gt;</span> map = new HashMap<span class="variable">&lt;&gt;</span>();</span><br><span class="line"></span><br><span class="line">    try &#123;</span><br><span class="line">        //用户注册</span><br><span class="line">        map = userService.regist(user);</span><br><span class="line"></span><br><span class="line">    &#125;catch (Exception e)&#123;</span><br><span class="line">        System.out.println(e.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return map;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">3.在请求头中进行设置</span><br><span class="line">response.setHeader(<span class="string">"Cache-Control"</span>, <span class="string">"no-cache"</span>);   </span><br><span class="line">response.setContentType(<span class="string">"text/json;charset=UTF-8"</span>);  </span><br><span class="line">response.setCharacterEncoding(<span class="string">"UTF-8"</span>);  </span><br><span class="line">PrintWriter out = response.getWriter();  </span><br><span class="line">out.write(result);</span><br></pre></td></tr></table></figure>
+<p>&emsp;这里插一句，接口隔离原则中所说的接口并不是狭意的在Java中用interface定义的接口，而是一种更为宽泛的概念，可以是接口，抽象类或者实体类。</p>
+<p>&emsp;<strong>接口隔离原则定义如下：</strong></p>
+<ul>
+<li>客户端不应该依赖它不需要的接口</li>
+<li>类间的依赖关系应该建立在最小的接口上</li>
+</ul>
 <blockquote>
-<p>上面所讲的第二种方法中，关于produces(还有一个 consumes)，可以查看此博客，做更深了解：</p>
-<ul>
-<li><a href="https://blog.csdn.net/walkerjong/article/details/7994326" target="_blank" rel="noopener">https://blog.csdn.net/walkerjong/article/details/7994326</a></li>
-</ul>
+<p>&emsp;其实通俗来理解就是，不要在一个接口里面放很多的方法，这样会显得这个类很臃肿不堪。接口应该尽量细化，一个接口对应一个功能模块，同时接口里面的方法应该尽可能的少，使接口更加轻便灵活。或许看到接口隔离原则这样的定义很多人会觉得和单一职责原则很像，但是这两个原则还是有着很鲜明的区别。接口隔离原则和单一职责原则的审视角度是不同的，单一职责原则要求类和接口职责单一，注重的是职责，是业务逻辑上的划分，而接口隔离原则要求方法要尽可能的少，是在接口设计上的考虑。例如一个接口的职责包含10个方法，这10个方法都放在一个接口中，并且提供给多个模块访问，各个模块按照规定的权限来访问，并规定了“不使用的方法不能访问”，这样的设计是不符合接口隔离原则的，接口隔离原则要求“尽量使用多个专门的接口”，这里专门的接口就是指提供给每个模块的都应该是单一接口(即每一个模块对应一个接口)，而不是建立一个庞大臃肿的接口来容纳所有的客户端访问。</p>
 </blockquote>
-<ul>
-<li><strong>Transfer-Encoding:chunked和Content-Disposition:inline;filename=f.txt问题：</strong> 在做项目的时候，响应头里面出现了 Transfer-Encoding:chunked和Content-Disposition:inline;filename=f.txt，让我百思不得其解，后来经过多方查阅，终于让我弄明白了到底是设么意思。</li>
+<h4 id="接口隔离原则的使用"><a href="#接口隔离原则的使用" class="headerlink" title="接口隔离原则的使用"></a>接口隔离原则的使用</h4><p>&emsp;在说接口隔离原则之前，我们先说一个没有使用该原则的例子，然后通过前后对比，来看看有什么不同之处。大家一听到“美女”这个字眼，会想到什么呢？别激动啊，我没啥意思，只是想给美女来定一个通用的标准：面貌，身材与气质，一般来说，长得好看的，身材不错的，气质出众的都可以称为美女。假如我现在是一个星探，下面我要设计一个找美女的类图：<br><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/ISP-1.JPG" alt=""></p>
+<p>&emsp;定义了一个IPettyGirl接口，声明所有的美女都应该有goodLooking，niceFigure，greatTemperament。还定义了一个抽象类AbstractSearcher，其作用就是搜索美女并显示其信息。下面是接口的定义与实现：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//美女接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IPettyGirl</span> &#123;</span><br><span class="line">    <span class="comment">//要有姣好的面孔</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">goodLooking</span>(<span class="params"></span>)</span>;</span><br><span class="line">    <span class="comment">//要有好身材</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">niceFigure</span>(<span class="params"></span>)</span>;</span><br><span class="line">    <span class="comment">//要有气质</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">greatTemperament</span>(<span class="params"></span>)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//接口的实现类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PettyGirl</span> <span class="title">implements</span> <span class="title">IPettyGirl</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PettyGirl</span>(<span class="params">String  name</span>)</span>&#123;</span><br><span class="line">       <span class="keyword">this</span>.name= name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//脸蛋漂亮</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">goodLooking</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     System.<span class="keyword">out</span>.println(<span class="keyword">this</span>.name + <span class="string">"---脸蛋很漂亮!"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//气质要好</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">greatTemperament</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      System.<span class="keyword">out</span>.println(<span class="keyword">this</span>.name + <span class="string">"---气质非常好!"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//身材要好</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">niceFigure</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      System.<span class="keyword">out</span>.println(<span class="keyword">this</span>.name + <span class="string">"---身材非常棒!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>美女有了，就需要星探出马找美女了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//星探的抽象</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractSearcher</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> IPettyGirl pettyGirl;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AbstractSearcher</span><span class="params">(IPettyGirl pettyGirl)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.pettyGirl = pettyGirl;</span><br><span class="line">   &#125;</span><br><span class="line">     <span class="comment">//搜索美女， 列出美女信息</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//实现类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Searcher</span> <span class="keyword">extends</span> <span class="title">AbstractSearcher</span></span>&#123;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="title">Searcher</span><span class="params">(IPettyGirl pettyGirl)</span></span>&#123;</span><br><span class="line">         <span class="keyword">super</span>(pettyGirl);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//展示美女的信息</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"--------美女的信息如下： ---------------"</span>);</span><br><span class="line">         <span class="comment">//展示面容</span></span><br><span class="line">        <span class="keyword">super</span>.pettyGirl.goodLooking();</span><br><span class="line">         <span class="comment">//展示身材</span></span><br><span class="line">        <span class="keyword">super</span>.pettyGirl.niceFigure();</span><br><span class="line">        <span class="comment">//展示气质</span></span><br><span class="line">        <span class="keyword">super</span>.pettyGirl.greatTemperament();</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//下面是客户端代码</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">      <span class="comment">//搜索并展示美女信息</span></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      <span class="comment">//定义一个美女</span></span><br><span class="line">      IPettyGirl xiaoMei = <span class="keyword">new</span> PettyGirl(<span class="string">"小美"</span>);</span><br><span class="line">      AbstractSearcher searcher = <span class="keyword">new</span> Searcher(yanYan);</span><br><span class="line">      searcher.show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;OK，找美女的过程开发完毕，总体来说还是不错的，因为只要按照我们设计的原则来，那么找到的都是美女。但是这样的设计是最优的吗？现在考虑这样一种情况，由于人们审美的提高，或许颜值不一定是我们关注的主要因素，也许某个女生虽然颜值不是太高，但是气质很好，也可以把她称为美女。也有可能某些人喜欢身材匀称的，有的人觉得骨感一点好。也就是是说，美女的定义是可以宽泛话的，并非一成不变的。就如同我们的设计，必须符合我们定好的原则那才是美女，显然这是说不通的。所以上面的设计是有问题的，显然IPrettyGirl这个接口过于庞大了，根据接口隔离原则，星探AbstractSearcher应该依赖于具有部分特质的女孩子，但上面的设计却把这些特质都封装起来，放到一个接口中，这样就造成了封装过度，不容易扩展。</p>
+<hr>
+<p> &emsp;现在我们找到了问题的原因，那就该接口隔离原则上场了。把原IPrettyGirl接口拆分为两个接口，一种是外形美女IGoodBodyGirl(相貌一流，身材不错，但气质可能差点)，另一种是气质美女IGreatTemperamentGirl(也许外形条件不出众，但是谈吐优雅得体，气质很好)。下面是设计类图：<br> <img src="https://raw.githubusercontent.com/yuanghs/pictures/master/ISP-2.JPG" alt=""></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IGoodBodyGirl</span> </span>&#123;</span><br><span class="line">     <span class="comment">//要有姣好的面孔</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">goodLooking</span><span class="params">()</span></span>;</span><br><span class="line">     <span class="comment">//要有好身材</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">niceFigure</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IGreatTemperamentGirl</span> </span>&#123;</span><br><span class="line">    <span class="comment">//要有气质</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">greatTemperament</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PettyGirl</span> <span class="keyword">implements</span> <span class="title">IGoodBodyGirl</span>,<span class="title">IGreatTemperamentGirl</span> </span>&#123;</span><br><span class="line">     <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="title">PettyGirl</span><span class="params">(String _name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name=_name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//脸蛋漂亮</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">goodLooking</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="keyword">this</span>.name + <span class="string">"---脸蛋很漂亮!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//气质要好</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">greatTemperament</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       System.out.println(<span class="keyword">this</span>.name + <span class="string">"---气质非常好!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//身材要好</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">niceFigure</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="keyword">this</span>.name + <span class="string">"---身材非常棒!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>OK，现在经过重新设计，程序变得更加灵活，这就是接口隔离原则的强大之处。</p>
+<h4 id="ISP的几个使用原则"><a href="#ISP的几个使用原则" class="headerlink" title="ISP的几个使用原则"></a>ISP的几个使用原则</h4><ul>
+<li><strong>根据接口隔离原则拆分接口时，首先必须满足单一职责原则：</strong> 没有哪个设计可以十全十美的考虑到所有的设计原则，有些设计原则之间就可能出现冲突，就如同单一职责原则和接口隔离原则，一个考虑的是接口的职责的单一性，一个考虑的是方法设计的专业性(尽可能的少)，必然是会出现冲突。在出现冲突时，尽量以单一职责为主，当然这也要考虑具体的情况。</li>
+<li><strong>提高高内聚：</strong> 提高接口，类，模块的处理能力，减少对外的交互。比如你给杀手提交了一个订单，要求他在一周之内杀一个人，一周后杀手完成了任务，这种不讲条件完成任务的表现就是高内聚。具体来说就是：要求在接口中尽量少公布public方法，接口是对外的承诺，承诺越少对系统的开发越有利，变更的风险就越小，也有利于降低成本。</li>
+<li><strong>定制服务：</strong> 单独为一个个体提供优良服务(只提供访问者需要的方法)。</li>
+<li><strong>接口设计要有限度：</strong> 根据经验判断</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/HelloBird-4.jpg" alt=""></p>
-<ol>
-<li><p>Transfer-Encoding:chunked 简单来说，Transfer-Encoding是一个Http的头部字段，意思是传输编码。而chunked是分块传输的意思，就是说对于输出内容长度不确定的，如gzip格式等，就会用到分块传输技术。参考博客：</p>
-<ul>
-<li><a href="https://blog.csdn.net/whatday/article/details/7571451" target="_blank" rel="noopener">https://blog.csdn.net/whatday/article/details/7571451</a></li>
-<li><a href="https://imququ.com/post/transfer-encoding-header-in-http.html" target="_blank" rel="noopener">https://imququ.com/post/transfer-encoding-header-in-http.html</a></li>
+<h4 id="参考书籍"><a href="#参考书籍" class="headerlink" title="参考书籍"></a>参考书籍</h4><ul>
+<li>《设计模式之禅》</li>
 </ul>
-</li>
-<li><p>Content-Disposition:inline;filename=f.txt 初遇这个响应头的时候我也是有点懵，不知道什么意思，后来也搞明白了。该属性设置的是在文件下载时对下载文件的一个标识字段。参考链接：</p>
-<ul>
-<li><a href="https://blog.csdn.net/dabinge1/article/details/52587662" target="_blank" rel="noopener">https://blog.csdn.net/dabinge1/article/details/52587662</a></li>
-</ul>
-</li>
-</ol>
-<ul>
-<li><strong>session问题和token的使用：</strong> 该项目是基于微信小程序的，在保存用户登录状态和身份验证这一点上，我首先想到了用session，同时我想项目比较小，可以把用户的购物车放在session中，一次会话结束就将session里面的购物车清除，后来我发现了这其中的问题。首先：微信小程序不支持Cookie(意味着session也用不了)，这在项目后期对于我的打击肯定是很大的，因为我的好多业务逻辑都是基于session的，session用不了那么项目就瘫痪了一大半，后来经过冷静思考也发现的我设计的问题，关于session的问题只是其次，用户的购物车放在session中，一次会话后就被清除，这显然是不合理的，对于用户的信息，我们需要把它固话在数据库中，后来我又重新增添一张表来保存用户的购物车，这个逻辑想明白之后，还有一点不知道怎么弄，session用不了，那用什么好呢？后来我想到了使用token。<ul>
-<li>token是什么：token是一个加密的字符串，里面包含了后台给前台传递的加密信息(不容易被破解)<ul>
-<li><a href="https://ninghao.net/blog/2834" target="_blank" rel="noopener">https://ninghao.net/blog/2834</a></li>
-<li><a href="https://dombro96.github.io/2017/12/11/%E6%B5%85%E8%B0%88token/" target="_blank" rel="noopener">https://dombro96.github.io/2017/12/11/%E6%B5%85%E8%B0%88token/</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="一点总结——我的心里话"><a href="#一点总结——我的心里话" class="headerlink" title="一点总结——我的心里话"></a>一点总结——我的心里话</h4><p>&emsp;说实话，自己真正做完一个项目确实挺开心，特别是在把每一个接口都测试好，并且项目真正跑起来的时候，感觉身体特别放松，觉得付出的一切都值得。作为项目负责人，需要考虑的事情特别多，一边需要和团队成员沟通，讨论需求，讨论接口，另一边还需要思考如何进行后台的整个架构，还要关心项目的进度等等，虽然团队在磨合过程中确实出现了很多问题，比如由于前期的交流不充分，需求讨论的不清楚，导致后面的接口改了好多次。还有比如原先对微信小程序的机制不是太了解，差点导致项目崩盘等等。但好在我们都坚持了下来，不管这个项目做得好不好，但我们起码还是把它完成了，总的来说还是要谢谢我们的团队，谢谢这次做项目的经历，让我得到了锻炼与成长，同时也让我明白了作为一个项目负责人，应该明白如何和组员进行良好的沟通，应该有一个清晰的项目进度计划，应该制定一个完善的奖惩措施，应该统筹安排好每个分支的工作。确实，一次历练就是一次成长，一次成长对于整个人生来说弥足珍贵！</p>
 
       
     </div>
@@ -581,16 +567,16 @@
 
         <li class="post-copyright-link">
           <strong>本文标题：</strong>
-          <a href="http://yoursite.com/2018/04/21/HelloBird——资源回收o2o平台/" title="HelloBird——资源回收o2o平台">HelloBird——资源回收o2o平台</a>
+          <a href="http://yoursite.com/2018/04/27/面向对象六大原则——接口隔离原则/" title="面向对象六大原则——接口隔离原则">面向对象六大原则——接口隔离原则</a>
         </li>
 
         <li class="post-copyright-link">
           <strong>本文链接：</strong>
-          <a href="http://yoursite.com/2018/04/21/HelloBird——资源回收o2o平台/" title="HelloBird——资源回收o2o平台">http://yoursite.com/2018/04/21/HelloBird——资源回收o2o平台/</a>
+          <a href="http://yoursite.com/2018/04/27/面向对象六大原则——接口隔离原则/" title="面向对象六大原则——接口隔离原则">http://yoursite.com/2018/04/27/面向对象六大原则——接口隔离原则/</a>
         </li>
 
         <li class="post-copyright-date">
-            <strong>发布时间：</strong>2018年4月21日 - 16时04分
+            <strong>发布时间：</strong>2018年4月27日 - 16时04分
         </li>  
 
         <li class="post-copyright-license">
@@ -609,8 +595,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/21/Java-8-新特性——lambda表达式/" rel="next" title="Java 8 新特性——lambda表达式">
-                <i class="fa fa-chevron-left"></i> Java 8 新特性——lambda表达式
+              <a href="/2018/04/26/面向对象六大原则——依赖倒置原则/" rel="next" title="面向对象六大原则——依赖倒置原则">
+                <i class="fa fa-chevron-left"></i> 面向对象六大原则——依赖倒置原则
               </a>
             
           </div>
@@ -619,8 +605,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/04/24/适配器模式——Adapter/" rel="prev" title="适配器模式——Adapter">
-                适配器模式——Adapter <i class="fa fa-chevron-right"></i>
+              <a href="/2018/04/28/面向对象六大原则——迪米特法则/" rel="prev" title="面向对象六大原则——迪米特法则">
+                面向对象六大原则——迪米特法则 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -779,7 +765,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#项目介绍"><span class="nav-number">1.</span> <span class="nav-text">项目介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#项目架构"><span class="nav-number">2.</span> <span class="nav-text">项目架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#项目中遇到的问题"><span class="nav-number">3.</span> <span class="nav-text">项目中遇到的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一点总结——我的心里话"><span class="nav-number">4.</span> <span class="nav-text">一点总结——我的心里话</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是接口隔离原则-Interface-Segregation-Principle-ISP"><span class="nav-number">1.</span> <span class="nav-text">什么是接口隔离原则(Interface  Segregation Principle, ISP)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#接口隔离原则的使用"><span class="nav-number">2.</span> <span class="nav-text">接口隔离原则的使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ISP的几个使用原则"><span class="nav-number">3.</span> <span class="nav-text">ISP的几个使用原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考书籍"><span class="nav-number">4.</span> <span class="nav-text">参考书籍</span></a></li></ol></div>
             
 
           </div>
