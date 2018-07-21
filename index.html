@@ -339,6 +339,234 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/21/深入理解单例模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雅客">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雅客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/21/深入理解单例模式/" itemprop="url">深入理解单例模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-21T22:49:55+08:00">
+                2018-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/07/21/深入理解单例模式/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://yoursite.com/2018/07/21/深入理解单例模式/" class="cy_cmt_count" data-xid="2018/07/21/深入理解单例模式/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,612
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<ol>
+<li>为什么静态内部类的单例模式是最推荐的？</li>
+<li>如何在反射的情况下保证单例</li>
+<li>如何在反序列化中保证单例</li>
+</ol>
+</blockquote>
+<p><strong>为了回答上面三个问题，下面将逐步进行分析</strong></p>
+<h5 id="1-饿汉式——线程安全的单例模式"><a href="#1-饿汉式——线程安全的单例模式" class="headerlink" title="1. 饿汉式——线程安全的单例模式"></a>1. 饿汉式——线程安全的单例模式</h5><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class Singleton1 &#123;</span><br><span class="line">    private static Singleton1<span class="built_in"> instance </span>= new Singleton1();</span><br><span class="line">    </span><br><span class="line">    private Singleton1()&#123;&#125;</span><br><span class="line">    </span><br><span class="line">    public static Singleto1 getInstnance() &#123;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><font color="bule">优点：线程安全；缺点：类加载的时候已经实例化，浪费空间</font></strong></p>
+<h5 id="2-懒汉式"><a href="#2-懒汉式" class="headerlink" title="2. 懒汉式"></a>2. 懒汉式</h5><h6 id="（1）懒汉式V1"><a href="#（1）懒汉式V1" class="headerlink" title="（1）懒汉式V1"></a>（1）懒汉式V1</h6><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public class LazySingleton1() &#123;</span><br><span class="line">    private static LazySingleton1 instance;</span><br><span class="line">    </span><br><span class="line">    private LazySingleton1()&#123;&#125;</span><br><span class="line">    </span><br><span class="line">    public static LazySingleton1 getInstance() &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">           <span class="built_in"> instance </span>= new LazySingleton1();</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><font color="bule">线程不安全，给方法加锁</font></strong></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public static synchronized LazySingleton1 getInstance() &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">           <span class="built_in"> instance </span>= new LazySingleton1();</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><strong><font color="bule">由于将synchronized关键字加在方法上会造成线程阻塞(同步)，在性能上会大打折扣。所以使用双重校验锁(在保证线程安全的同时提高了性能。)</font></strong></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public static LazySingleton1 getInstance() &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">            synchronized (LazySingleton1.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="literal">null</span>) &#123;</span><br><span class="line">                   <span class="built_in"> instance </span>= new LazySingleton1();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h6 id="2-懒汉式V2"><a href="#2-懒汉式V2" class="headerlink" title="(2) 懒汉式V2"></a>(2) 懒汉式V2</h6><p><strong><font color="green">内部类加载机制</font></strong></p>
+<figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> OuterTest &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"load outer class..."</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">class</span> StaticInnerTest &#123;</span><br><span class="line">        <span class="keyword">static</span> &#123;</span><br><span class="line">            System.<span class="keyword">out</span>.println(<span class="string">"load static inner class..."</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">void</span> staticInnerMethod() &#123;</span><br><span class="line">            System.<span class="keyword">out</span>.println(<span class="string">"static inner method..."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String[] args) &#123;</span><br><span class="line">        OuterTest outerTest = <span class="keyword">new</span> OuterTest();</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"===========//========="</span>);</span><br><span class="line">        OuterTest.StaticInnerTest.staticInnerMethod();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">load outer <span class="keyword">class</span>...</span><br><span class="line">===========<span class="comment">//=========</span></span><br><span class="line">load <span class="keyword">static</span> inner <span class="keyword">class</span>...</span><br><span class="line"><span class="keyword">static</span> inner method...</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>说明：1. 加在一个类时，其内部类不会被同时加载。2. 一个类被加载，当且仅当某个静态成员(静态域，构造器，静态方法等)被调用时发生。</strong></p>
+</blockquote>
+<hr>
+<p>&emsp;回到第一版的双重校验锁。其实不管性能如何优越，还是使用了synchronized关键字，那么对性能始终是有影响的(有兴趣的话可以了解一下synchronized的内存模型与底层原理)。所以，下面给出了改良版本——<strong>使用静态内部类的方式</strong>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazySingleton2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">LazySingleton2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonHolder</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> lazySingleton2 instance = <span class="keyword">new</span> LazySingleton2();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LazySingleton2 <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonHolder.instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(LazySingleton2.getInstance().hashCode());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Run</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        MyThread t1 = <span class="keyword">new</span> MyThread();</span><br><span class="line">        MyThread t2 = <span class="keyword">new</span> MyThread();</span><br><span class="line">        MyThread t3 = <span class="keyword">new</span> MyThread();</span><br><span class="line"></span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">        t3.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">结果：</span><br><span class="line"><span class="number">1385166630</span></span><br><span class="line"><span class="number">1385166630</span></span><br><span class="line"><span class="number">1385166630</span></span><br></pre></td></tr></table></figure>
+<p>&emsp;由于对象实例化是在内部类加载的时候构建的，因此是线程安全的(在方法中创建对象才存在并发问题，静态内部类随着方法的调用而被加载，只加载一次，不存在线程安全问题)。</p>
+<p>&emsp;在getInstance()方法中没有使用synchronized关键字，因此没有造成多余的性能损耗。当LazySingleton2类加载的时候，其静态内部类SingletonHolder并没有被加载，因此instance对象没有被构建。</p>
+<p>&emsp;而我们在调用LazySingleton2.getInstance()方法时，内部类SingletonHolder被加载，此时单例对象才被构建。因此，这种写法节约空间，达到了懒加载的目的。</p>
+<h6 id="3-懒汉式V3"><a href="#3-懒汉式V3" class="headerlink" title="(3) 懒汉式V3"></a>(3) 懒汉式V3</h6><p>使用静态内部类的懒加载方式虽然具有很多优良特性，但是在反射的作用下，单例结构还是会被破坏：</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazySingleton2Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> void main(<span class="keyword">String</span>[] args) &#123;</span><br><span class="line">        <span class="comment">//创建第一个实例</span></span><br><span class="line">        LazySingleton2 instance1 = LazySingleton2.getInstance();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//通过反射创建第二个实例</span></span><br><span class="line">        LazySingleton2 instance2 = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Class&lt;LazySingleton2&gt; clazz = LazySingleton2.class;</span><br><span class="line">            Constructor&lt;LazySingleton2&gt; constructor = clazz.getDeclaredConstructor();</span><br><span class="line">            constructor.setAccessible(<span class="literal">true</span>);</span><br><span class="line">            instance2 = constructor.<span class="keyword">new</span><span class="type">Instance</span>();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//检验两个实例的hashcode值</span></span><br><span class="line">        System.out.println(<span class="string">"Instance1's hashcode："</span> + instance1.hashCode());</span><br><span class="line">        System.out.println(<span class="string">"Instance2's hashcode："</span> + instance2.hashCode());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">结果：</span><br><span class="line">Instance1<span class="string">'s hashcode：21685669</span></span><br><span class="line"><span class="string">Instance2'</span>s hashcode：<span class="number">2133927002</span></span><br></pre></td></tr></table></figure>
+<p><strong>由于上面的问题，所以诞生了第三版的懒汉式：</strong></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazySingleton3</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> initialized = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> LazySingleton3() &#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (LazySingleton3.<span class="keyword">class</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (initialized == <span class="literal">false</span>) &#123;</span><br><span class="line">                initialized = !initialized;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"单例已经被破坏！"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonHolder</span> &#123;</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> LazySingleton3 instance = <span class="keyword">new</span> LazySingleton3();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> LazySingleton3 getInstance() &#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonHolder.instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">经过测试后输出为：</span><br><span class="line">java.lang.reflect.InvocationTargetException</span><br><span class="line">trueat sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)</span><br><span class="line">trueat sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.<span class="string">java:</span><span class="number">62</span>)</span><br><span class="line">trueat sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.<span class="string">java:</span><span class="number">45</span>)</span><br><span class="line">trueat java.lang.reflect.Constructor.newInstance(Constructor.<span class="string">java:</span><span class="number">423</span>)</span><br><span class="line">trueat com.yuangh.concurrent4.demo3.LazySingleton2Test.main(LazySingleton2Test.<span class="string">java:</span><span class="number">22</span>)</span><br><span class="line">Caused <span class="string">by:</span> java.lang.<span class="string">RuntimeException:</span> 单例已经被破坏！</span><br><span class="line">trueat com.yuangh.concurrent4.demo3.LazySingleton3.&lt;init&gt;(LazySingleton3.<span class="string">java:</span><span class="number">16</span>)</span><br><span class="line">true... <span class="number">5</span> more</span><br><span class="line">Exception <span class="keyword">in</span> thread <span class="string">"main"</span> java.lang.NullPointerException</span><br><span class="line">trueat com.yuangh.concurrent4.demo3.LazySingleton2Test.main(LazySingleton2Test.<span class="string">java:</span><span class="number">28</span>)</span><br><span class="line">Instance1<span class="string">'s hashcode：1836019240</span></span><br></pre></td></tr></table></figure>
+<p><strong>这就保证了反射无法破坏其单例性。</strong></p>
+<h6 id="4-懒汉式V4"><a href="#4-懒汉式V4" class="headerlink" title="(4) 懒汉式V4"></a>(4) 懒汉式V4</h6><p>在分布式系统中，有些情况下需要在单例中实现Serializable接口。这样就可以在文件系统中存储它的状态并且在稍后的某一时间点取出。</p>
+<p><strong>将 public class LazySingleton3 修改为 public class LazySingleton3 implements Serializable</strong></p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazySingleton3Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> void main(<span class="keyword">String</span>[] args) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//将对象序列化到文件</span></span><br><span class="line">            LazySingleton3 instance1 = LazySingleton3.getInstance();</span><br><span class="line">            ObjectOutput out = <span class="literal">null</span>;</span><br><span class="line">            out = <span class="keyword">new</span> <span class="type">ObjectOutputStream</span>(<span class="keyword">new</span> <span class="type">FileOutputStream</span>(<span class="string">"filename.ser"</span>));</span><br><span class="line">            out.writeObject(instance1);</span><br><span class="line">            out.close();</span><br><span class="line"></span><br><span class="line">            <span class="comment">//从文件反序列化到对象</span></span><br><span class="line">            ObjectInput <span class="keyword">in</span> = <span class="keyword">new</span> <span class="type">ObjectInputStream</span>(<span class="keyword">new</span> <span class="type">FileInputStream</span>(<span class="string">"filename.ser"</span>));</span><br><span class="line">            LazySingleton3 instance2 = (LazySingleton3) <span class="keyword">in</span>.readObject();</span><br><span class="line">            <span class="keyword">in</span>.close();</span><br><span class="line">            System.out.println(<span class="string">"instance1's hashcode："</span> + instance1.hashCode());</span><br><span class="line">            System.out.println(<span class="string">"instance2's hashcode："</span> + instance2.hashCode());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">得到结果为：</span><br><span class="line">instance1<span class="string">'s hashcode：856419764</span></span><br><span class="line"><span class="string">instance2'</span>s hashcode：<span class="number">1480010240</span></span><br></pre></td></tr></table></figure>
+<p>&emsp;显然，出现了两个实例类，说明破坏了单例模式。我们需要提供 readResolve() 方法的实现。readResolve(）代替了从流中读取对象。这就确保了在序列化和反序列化的过程中没人可以创建新的实例。下面是懒汉式第四个版本：</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazySingleton4</span> <span class="keyword"><span class="keyword">implements</span> <span class="type">Serializable</span></span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> boolean initialized = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> LazySingleton4() &#123;</span><br><span class="line">        synchronized (LazySingleton3.class) &#123;</span><br><span class="line">            <span class="keyword">if</span> (initialized == <span class="literal">false</span>) &#123;</span><br><span class="line">                initialized = !initialized;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">RuntimeException</span>(<span class="string">"单例已经被破坏！"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonHolder</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> final LazySingleton4 instance = <span class="keyword">new</span> <span class="type">LazySingleton4</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> LazySingleton4 getInstance() &#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonHolder.instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Object readResolve() &#123;</span><br><span class="line">        <span class="keyword">return</span> getInstance();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">测试后输出结果为：</span><br><span class="line">instance1<span class="string">'s hashcode：856419764</span></span><br><span class="line"><span class="string">instance2'</span>s hashcode：<span class="number">856419764</span></span><br></pre></td></tr></table></figure>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>&emsp;在项目开发中根据情况选择相应的版本使用即可，并没有强制要求使用哪个版本。当然，一般来说，第二个版本(懒汉式V2)是使用的比较多的。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+	<div>
+		
+	</div>
+	
+    
+
+    
+
+    <footer class="post-footer">
+
+   
+     <div>    
+      
+  </div>
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/21/配置centos-minimal/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2511,242 +2739,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/21/HelloBird——资源回收o2o平台/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雅客">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雅客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/21/HelloBird——资源回收o2o平台/" itemprop="url">HelloBird——资源回收o2o平台</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-21T16:54:05+08:00">
-                2018-04-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/我的项目/" itemprop="url" rel="index">
-                    <span itemprop="name">我的项目</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2018/04/21/HelloBird——资源回收o2o平台/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/2018/04/21/HelloBird——资源回收o2o平台/" class="cy_cmt_count" data-xid="2018/04/21/HelloBird——资源回收o2o平台/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,597
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  6
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h4><p>&emsp;”HelloBird”是一个基于微信小程序搭建的资源回收o2o平台，目的是为了实现废旧资源的流转。在”HelloBird”中，用户可以轻松的获取生活垃圾的基本信息，并能根据自己的实际情况便捷考虑是否将废品出售，在用户选择好要出售的废品并提交订单之后，系统将自动派送回收员上门服务，收取废品，使用户足不出户就能将生活中的垃圾得到妥善处理，还能获得一定的收益，并且实现了资源的再利用。</p>
-<p><strong>功能需求如下</strong>：</p>
-<p><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/HelloBird-1.jpg" alt=""></p>
-<h4 id="项目架构"><a href="#项目架构" class="headerlink" title="项目架构"></a>项目架构</h4><p>&emsp;”HelloBird”项目客户端采用微信web平台，使用JavaEE做后台架构，数据采用的是关系型数据库MySQL。在后台架构上，采用SSM(Spring+SpringMVC+Mybatis)框架，Mybatis负责持久层操作，SpringMVC作为前端控制器，处理前台和后台的交互，Spring作为IOC容器，为Mybatis和SpringMVC提供支持(事物操作等)。</p>
-<p><strong>架构图如下</strong>：</p>
-<p><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/HelloBird-2.jpg" alt=""></p>
-<p><strong>页面逻辑图如下</strong>：<br><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/HelloBird-3.JPG" alt=""></p>
-<h4 id="项目中遇到的问题"><a href="#项目中遇到的问题" class="headerlink" title="项目中遇到的问题"></a>项目中遇到的问题</h4><ul>
-<li><strong>使用json进行前后台数据交互的格式：</strong> 该项目使用json作为前后台数据传输的格式，SpringMVC的两个注解非常友好的帮我进行封装于实现，封闭式@ResponseBody和@RequestBody，@ResponseBody负责将数据包装成json字符串返回给前台，@RequestBody则将从前台接收到的数据包装成对应的JavaBean对象。在使用过程中，出现了中文字符乱码问题，后来进行了解决。</li>
-</ul>
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">1. 使用如下配置可解决字符乱码问题(全局设置)：</span><br><span class="line"><span class="variable">&lt;mvc:annotation-driven&gt;</span></span><br><span class="line">      <span class="variable">&lt;mvc:message-converters&gt;</span></span><br><span class="line">            <span class="variable">&lt;bean class="org.springframework.http.converter.StringHttpMessageConverter"&gt;</span></span><br><span class="line">                <span class="variable">&lt;property name="supportedMediaTypes"&gt;</span></span><br><span class="line">                    <span class="variable">&lt;list&gt;</span></span><br><span class="line">                        <span class="variable">&lt;value&gt;</span>application/json;charset=UTF-8<span class="variable">&lt;/value&gt;</span></span><br><span class="line">                    <span class="variable">&lt;/list&gt;</span></span><br><span class="line">                <span class="variable">&lt;/property&gt;</span></span><br><span class="line">            <span class="variable">&lt;/bean&gt;</span></span><br><span class="line">        <span class="variable">&lt;/mvc:message-converters&gt;</span></span><br><span class="line">    <span class="variable">&lt;/mvc:annotation-driven&gt;</span></span><br><span class="line"></span><br><span class="line">2.使用produces = <span class="string">"text/html;charset=UTF-8"</span>也能解决中文乱码问题</span><br><span class="line"><span class="meta">@RequestMapping(value</span> = <span class="string">"/regist"</span>, method = RequestMethod.POST,  produces = <span class="string">"text/html;charset=UTF-8"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line">public Map<span class="variable">&lt;Integer, Object&gt;</span> regist(<span class="meta">@RequestBody</span> User user)&#123;</span><br><span class="line"></span><br><span class="line">    Map<span class="variable">&lt;Integer, Object&gt;</span> map = new HashMap<span class="variable">&lt;&gt;</span>();</span><br><span class="line"></span><br><span class="line">    try &#123;</span><br><span class="line">        //用户注册</span><br><span class="line">        map = userService.regist(user);</span><br><span class="line"></span><br><span class="line">    &#125;catch (Exception e)&#123;</span><br><span class="line">        System.out.println(e.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return map;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">3.在请求头中进行设置</span><br><span class="line">response.setHeader(<span class="string">"Cache-Control"</span>, <span class="string">"no-cache"</span>);   </span><br><span class="line">response.setContentType(<span class="string">"text/json;charset=UTF-8"</span>);  </span><br><span class="line">response.setCharacterEncoding(<span class="string">"UTF-8"</span>);  </span><br><span class="line">PrintWriter out = response.getWriter();  </span><br><span class="line">out.write(result);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>上面所讲的第二种方法中，关于produces(还有一个 consumes)，可以查看此博客，做更深了解：</p>
-<ul>
-<li><a href="https://blog.csdn.net/walkerjong/article/details/7994326" target="_blank" rel="noopener">https://blog.csdn.net/walkerjong/article/details/7994326</a></li>
-</ul>
-</blockquote>
-<ul>
-<li><strong>Transfer-Encoding:chunked和Content-Disposition:inline;filename=f.txt问题：</strong> 在做项目的时候，响应头里面出现了 Transfer-Encoding:chunked和Content-Disposition:inline;filename=f.txt，让我百思不得其解，后来经过多方查阅，终于让我弄明白了到底是设么意思。</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/HelloBird-4.jpg" alt=""></p>
-<ol>
-<li><p>Transfer-Encoding:chunked 简单来说，Transfer-Encoding是一个Http的头部字段，意思是传输编码。而chunked是分块传输的意思，就是说对于输出内容长度不确定的，如gzip格式等，就会用到分块传输技术。参考博客：</p>
-<ul>
-<li><a href="https://blog.csdn.net/whatday/article/details/7571451" target="_blank" rel="noopener">https://blog.csdn.net/whatday/article/details/7571451</a></li>
-<li><a href="https://imququ.com/post/transfer-encoding-header-in-http.html" target="_blank" rel="noopener">https://imququ.com/post/transfer-encoding-header-in-http.html</a></li>
-</ul>
-</li>
-<li><p>Content-Disposition:inline;filename=f.txt 初遇这个响应头的时候我也是有点懵，不知道什么意思，后来也搞明白了。该属性设置的是在文件下载时对下载文件的一个标识字段。参考链接：</p>
-<ul>
-<li><a href="https://blog.csdn.net/dabinge1/article/details/52587662" target="_blank" rel="noopener">https://blog.csdn.net/dabinge1/article/details/52587662</a></li>
-</ul>
-</li>
-</ol>
-<ul>
-<li><strong>session问题和token的使用：</strong> 该项目是基于微信小程序的，在保存用户登录状态和身份验证这一点上，我首先想到了用session，同时我想项目比较小，可以把用户的购物车放在session中，一次会话结束就将session里面的购物车清除，后来我发现了这其中的问题。首先：微信小程序不支持Cookie(意味着session也用不了)，这在项目后期对于我的打击肯定是很大的，因为我的好多业务逻辑都是基于session的，session用不了那么项目就瘫痪了一大半，后来经过冷静思考也发现的我设计的问题，关于session的问题只是其次，用户的购物车放在session中，一次会话后就被清除，这显然是不合理的，对于用户的信息，我们需要把它固话在数据库中，后来我又重新增添一张表来保存用户的购物车，这个逻辑想明白之后，还有一点不知道怎么弄，session用不了，那用什么好呢？后来我想到了使用token。<ul>
-<li>token是什么：token是一个加密的字符串，里面包含了后台给前台传递的加密信息(不容易被破解)<ul>
-<li><a href="https://ninghao.net/blog/2834" target="_blank" rel="noopener">https://ninghao.net/blog/2834</a></li>
-<li><a href="https://dombro96.github.io/2017/12/11/%E6%B5%85%E8%B0%88token/" target="_blank" rel="noopener">https://dombro96.github.io/2017/12/11/%E6%B5%85%E8%B0%88token/</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="一点总结——我的心里话"><a href="#一点总结——我的心里话" class="headerlink" title="一点总结——我的心里话"></a>一点总结——我的心里话</h4><p>&emsp;说实话，自己真正做完一个项目确实挺开心，特别是在把每一个接口都测试好，并且项目真正跑起来的时候，感觉身体特别放松，觉得付出的一切都值得。作为项目负责人，需要考虑的事情特别多，一边需要和团队成员沟通，讨论需求，讨论接口，另一边还需要思考如何进行后台的整个架构，还要关心项目的进度等等，虽然团队在磨合过程中确实出现了很多问题，比如由于前期的交流不充分，需求讨论的不清楚，导致后面的接口改了好多次。还有比如原先对微信小程序的机制不是太了解，差点导致项目崩盘等等。但好在我们都坚持了下来，不管这个项目做得好不好，但我们起码还是把它完成了，总的来说还是要谢谢我们的团队，谢谢这次做项目的经历，让我得到了锻炼与成长，同时也让我明白了作为一个项目负责人，应该明白如何和组员进行良好的沟通，应该有一个清晰的项目进度计划，应该制定一个完善的奖惩措施，应该统筹安排好每个分支的工作。确实，一次历练就是一次成长，一次成长对于整个人生来说弥足珍贵！</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-	<div>
-		
-	</div>
-	
-    
-
-    
-
-    <footer class="post-footer">
-
-   
-     <div>    
-      
-  </div>
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2801,7 +2793,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2822,7 +2814,7 @@
               
               
               <div class="site-state-item site-state-tags">
-                <a href="/about/index.html">
+                <a href="/tags/index.html">
                   <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
@@ -2893,7 +2885,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">33.5k</span>
+    <span title="Site words total count">35.1k</span>
   
 </div>
 
@@ -2920,7 +2912,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共33.5k字</span>
+  <span class="post-count">博客全站共35.1k字</span>
 </div>
 
 
