@@ -339,6 +339,284 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/21/配置centos-minimal/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="雅客">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雅客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/21/配置centos-minimal/" itemprop="url">配置centos_minimal</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-21T16:03:05+08:00">
+                2018-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/07/21/配置centos-minimal/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://yoursite.com/2018/07/21/配置centos-minimal/" class="cy_cmt_count" data-xid="2018/07/21/配置centos-minimal/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,790
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>我只想说，我绝望了一次，不想再绝望第二次</p>
+</blockquote>
+<h5 id="说在前面"><a href="#说在前面" class="headerlink" title="说在前面"></a>说在前面</h5><ul>
+<li>工作环境：VMware® Workstation 12 Pro 12.5.6 build-5528349</li>
+<li>linux版本：CentOS-7-x86_64-Minimal-1611.iso</li>
+</ul>
+<p><strong>VMware安装镜像不多赘述，傻瓜操作！</strong></p>
+<h5 id="万事第一步，把网络先连上"><a href="#万事第一步，把网络先连上" class="headerlink" title="万事第一步，把网络先连上"></a>万事第一步，把网络先连上</h5><blockquote>
+<p>说句废话啊，CentOS-7-x86_64-Minimal，见名知意，其实就是精简版本的centos(DVD 版的镜像文件有4G多，精简版本的只有600多M)，关于这个精简啊，真的只能说无语，好多命令都不能用(比如：nano, ifconfig)，我们需要自己配置与安装很多东西。其中配置网络就是万事第一步，没有网络，寸步难行哦。</p>
+</blockquote>
+<ul>
+<li>第一步：选中虚拟当前虚拟机右键<strong>设置</strong>——在弹出的窗口中选择<strong>网络适配器</strong>——在<strong>网络连接</strong>选项中选择 <strong>NAT模式</strong>——确定退出</li>
+</ul>
+<ul>
+<li><p>第二步：激活centos中的网卡(ONBOOT=yes，默认是no)，这就是不能联网的原因(<strong>下面的操作都是root权限</strong>)</p>
+<ol>
+<li><p>cd /etc/sysconfig/network-scripts/ 命令进入，通过 ls 命令可以查看下面的文件</p>
+<p><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/linux/network1.png" alt="image"></p>
+</li>
+<li><p>vi ifcfg-ens33 进入后编辑该文件，编辑如下：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">iTYPE</span>=Ethernet</span><br><span class="line"><span class="attr">BOOTPROTO</span>=dhcp</span><br><span class="line"><span class="attr">DEFROUTE</span>=<span class="literal">yes</span></span><br><span class="line"><span class="attr">PEERDNS</span>=<span class="literal">yes</span></span><br><span class="line"><span class="attr">PEERROUTES</span>=<span class="literal">yes</span></span><br><span class="line"><span class="attr">IPV4_FAILURE_FATAL</span>=<span class="literal">no</span></span><br><span class="line"><span class="attr">IPV6INIT</span>=<span class="literal">no</span></span><br><span class="line"><span class="attr">IPV6_AUTOCONF</span>=<span class="literal">no</span></span><br><span class="line"><span class="attr">IPV6_DEFROUTE</span>=<span class="literal">no</span></span><br><span class="line"><span class="attr">IPV6_PEERDNS</span>=<span class="literal">no</span></span><br><span class="line"><span class="attr">IPV6_PEERROUTES</span>=<span class="literal">no</span></span><br><span class="line"><span class="attr">IPV6_FAILURE_FATAL</span>=<span class="literal">no</span></span><br><span class="line"><span class="attr">IPV6_ADDR_GEN_MODE</span>=stable-privacy</span><br><span class="line"><span class="attr">NAME</span>=ens33</span><br><span class="line"><span class="attr">UUID</span>=<span class="number">1</span>c4e0233-<span class="number">8</span>fca-<span class="number">47</span>f7-<span class="number">9</span>cf5-<span class="number">5</span>aa94e0319fa</span><br><span class="line"><span class="attr">DEVICE</span>=ens33</span><br><span class="line"><span class="attr">ONBOOT</span>=<span class="literal">yes</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>service network restart 命令敲一遍，相当重启一下服务，然后 ping <a href="http://www.baidu.com，我们惊奇的发现连上网络了。" target="_blank" rel="noopener">www.baidu.com，我们惊奇的发现连上网络了。</a></p>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p>第三步：其实前两步走完不出意外的话基本上就连上网络了，出了意外的话就自行百度啦。这一步就是给虚拟机配置一个静态IP，用于在客户端使用 xshell 等工具进行连接，就相当于把虚拟机当做一个服务器，然后客户端只需要连接服务端的一个固定IP就可以访问服务器了。其实看上面的配置文件中的 <strong>BOOTPROTO=dhcp</strong>，这个的意思就是说是一个动态IP，下面进行配置：</p>
+<ol>
+<li><p>进入文件的方式命令和前一步一样，进入后配置如下：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">iTYPE</span>=Ethernet</span><br><span class="line"><span class="attr">BOOTPROTO</span>=static</span><br><span class="line"><span class="attr">DEFROUTE</span>=<span class="literal">yes</span></span><br><span class="line"><span class="attr">PEERDNS</span>=<span class="literal">yes</span></span><br><span class="line"><span class="attr">PEERROUTES</span>=<span class="literal">yes</span></span><br><span class="line"><span class="attr">IPV4_FAILURE_FATAL</span>=<span class="literal">no</span></span><br><span class="line"><span class="attr">IPV6INIT</span>=<span class="literal">no</span></span><br><span class="line"><span class="attr">IPV6_AUTOCONF</span>=<span class="literal">no</span></span><br><span class="line"><span class="attr">IPV6_DEFROUTE</span>=<span class="literal">no</span></span><br><span class="line"><span class="attr">IPV6_PEERDNS</span>=<span class="literal">no</span></span><br><span class="line"><span class="attr">IPV6_PEERROUTES</span>=<span class="literal">no</span></span><br><span class="line"><span class="attr">IPV6_FAILURE_FATAL</span>=<span class="literal">no</span></span><br><span class="line"><span class="attr">IPV6_ADDR_GEN_MODE</span>=stable-privacy</span><br><span class="line"><span class="attr">NAME</span>=ens33</span><br><span class="line"><span class="attr">UUID</span>=<span class="number">1</span>c4e0233-<span class="number">8</span>fca-<span class="number">47</span>f7-<span class="number">9</span>cf5-<span class="number">5</span>aa94e0319fa</span><br><span class="line"><span class="attr">DEVICE</span>=ens33</span><br><span class="line"><span class="attr">ONBOOT</span>=<span class="literal">yes</span></span><br><span class="line"></span><br><span class="line"><span class="attr">IPADDR</span>=<span class="number">192.168</span>.<span class="number">32.201</span></span><br><span class="line"><span class="attr">NETMASK</span>=<span class="number">255.255</span>.<span class="number">255.0</span></span><br><span class="line"><span class="attr">GATEWAY</span>=<span class="number">192.168</span>.<span class="number">32.2</span></span><br><span class="line"><span class="attr">DNS1</span>=<span class="number">8.8</span>.<span class="number">8.8</span></span><br><span class="line"><span class="attr">DNS2</span>=<span class="number">8.8</span>.<span class="number">4.4</span></span><br></pre></td></tr></table></figure>
+<p>BOOTPROTO=static 设置为静态IP，IPADDR 是自己的配置的ip，前三段不变，第四段改为自己设置的数字，NETMASK 是<br>子网掩码， GATEWAY 是网关。DNS1和DNS2是域名系统，这是基本配置(复制就行)。说一下怎么查看这几个配置：在VMware中点击<strong>编辑</strong>——点击<strong>虚拟网络编辑器</strong>——点击<strong>更改设置</strong>——选择<strong>VMnet8</strong>后点击<strong>NAT设置</strong>，就可以查看到基本配置。</p>
+<p><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/linux/network2.png" alt="image"></p>
+</li>
+<li><p>service network restart 重启网络服务，使用 ip addr 就可以查看自己的网络配置了(无法使用 ifconfig命令，需要安装)。</p>
+<p><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/linux/network3.png" alt="image"></p>
+</li>
+</ol>
+</li>
+</ul>
+<h5 id="装点工具——先配置一个软件源"><a href="#装点工具——先配置一个软件源" class="headerlink" title="装点工具——先配置一个软件源"></a>装点工具——先配置一个软件源</h5><blockquote>
+<p>网络连接上之后可以干的事情就多了，前面已经说了，好多命令是不能用的，这时就需要我们把它装上。但是，装软件的话是需要软件源的，centos默认的软件源下载很慢，这就需要我们配置一个软件源，我配置的是阿里的软件源。</p>
+</blockquote>
+<p><strong>在开始之前先介绍一个命令 yum :yellowdog updater modified , 这老家伙就是用了下载各种工具的boss，还是很牛叉的！对于我们这个精简版本来说，他需要经常上场。</strong></p>
+<ul>
+<li>第一步：备份原来的默认源(其实就是重命名) mv /etc/yum.repos.d/CentOS.repo.backup</li>
+</ul>
+<ul>
+<li>第二步：curl -o /etc/yum.repos.d/ali.repo <a href="http://mirrors.aliyun.com/repo/Centos-7.repo" target="_blank" rel="noopener">http://mirrors.aliyun.com/repo/Centos-7.repo</a> 使用这个命令就可以把阿里的源配置为自己的默认源。ls 命令查看如下：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/linux/repo.png" alt="image"></p>
+<ul>
+<li><p>第三步就是装工具了(工具就会从我们刚刚配置的源进行下载)</p>
+  <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">//基本名介绍：</span></span><br><span class="line">   </span><br><span class="line">   <span class="symbol">$</span>&gt;yum list							<span class="comment">//列出所有软件包</span></span><br><span class="line"><span class="symbol">$</span>&gt;yum list installed				<span class="comment">//列出已经安装的软件包</span></span><br><span class="line"><span class="symbol">$</span>&gt;yum list installed | grep nano	<span class="comment">//列出已经安装的软件包</span></span><br><span class="line"><span class="symbol">$</span>&gt;yum search nano					<span class="comment">//在yum的软件源中搜索软件 </span></span><br><span class="line"><span class="symbol">$</span>&gt;yum remove nano					<span class="comment">//卸载软件</span></span><br><span class="line"><span class="symbol">$</span>&gt;yum -y install nano				<span class="comment">//直接安装，不需要yes确认.</span></span><br><span class="line"><span class="symbol">$</span>&gt;yum list installed | grep nano	<span class="comment">//查看是否安装了Nano</span></span><br><span class="line">   </span><br><span class="line">   <span class="symbol">$</span>&gt;sudo yum install --downloadonly --downloaddir=/home/centos/rpms nano <span class="comment">//只下载, 不安装</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span>&gt;sudo yum reinstall --downloadonly	--downloaddir=/home/centos/rpms nano<span class="comment">//重新下载，不安装</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span>&gt;sudo yum localinstall xxx.rpm	<span class="comment">//从本地rpm文件直接安装软件</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">$</span>&gt;yum -y install nano         <span class="comment">//直接安装</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//基本工具安装(建议下面的都安装)：</span></span><br><span class="line"><span class="symbol">$</span>&gt;yum -y install net-tools		<span class="comment">//安装网络工具(可以使用 ifconfig 命令了)</span></span><br><span class="line"><span class="symbol">$</span>&gt;yum -y install gcc            <span class="comment">//安装gcc编译工具</span></span><br><span class="line"><span class="symbol">$</span>&gt;yum -y install kenel-devel</span><br><span class="line"><span class="symbol">$</span>&gt;yum -y install mkisofs        <span class="comment">//用于制作 .iso 文件</span></span><br><span class="line">   </span><br><span class="line">   其余的用到了假如有提示的话再安装即可。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="共享文件夹——安装虚拟机增强工具"><a href="#共享文件夹——安装虚拟机增强工具" class="headerlink" title="共享文件夹——安装虚拟机增强工具"></a>共享文件夹——安装虚拟机增强工具</h5><blockquote>
+<p>共享文件夹必不可少，这可是重中之重哦。桌面版的还好，这个minmal版的就要麻烦一些，所以上面建议安装的工具都要装上，要不然会很麻烦。、</p>
+</blockquote>
+<p>&emsp;其实假如使用VMware的虚拟机增强工具，点击安装或更新的话他会自动挂载，如果使用centos的桌面版的话，我们直接可以在桌面上看到，但是minimal版的话由于只能使用命令，所以相对麻烦一些，我相对习惯于使用手动挂载，就是把这个工具制作成一个 .iso 镜像文件，然后挂载到minimal中。</p>
+<p>下面介绍一下如何制作一个 .iso 文件，其实这就是一个归档打包的过程(root权限)</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&gt;mkisofs -r -o linux.iso <span class="regexp">/home/</span>centos<span class="regexp">/linux	/</span>/-<span class="string">r :</span> 保留原文件,-<span class="string">o:</span>输出的iso文件名</span><br></pre></td></tr></table></figure>
+<p>挂载vmware安装目录下的linux.iso(虚拟机增强工具镜像文件)文件：</p>
+<ol>
+<li>$&gt; mkdir /mnt/cdrom       //在mnt文件夹下新建cdrom文件夹</li>
+<li>插入镜像：打开设置——选项——共享文件夹(总是启用)——添加一个共享文件夹</li>
+<li>$&gt; mount /dev/cdrom /mnt/cdrom   //挂载设备</li>
+<li>$&gt; cp /mnt/cdrom/* /homn/centos/linux   //将cdrom中的文件复制到Linux目录下</li>
+</ol>
+<p>下面就是关键部分了，其实到这里的话就很easy了：</p>
+<ol>
+<li>$&gt; cd /home/centos/linux    //进入linux文件夹</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/linux/share.png" alt="image"></p>
+<ol start="2">
+<li>$&gt; tar -xzf VMwareTools-10.1.6-5214329.tar.gz 解压后会出现 vmware-tools-distrib，进入该文件夹</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/yuanghs/pictures/master/linux/share1.png" alt="image"></p>
+<ol start="3">
+<li>$&gt; ./vmware-install.pl 执行该文件， 后面出现的询问都闭着眼睛回车，一直到最后出现 Enjoy， 那么恭喜你，成功了。下面就可以查看共享文件夹了：cd /mnt/hgfs/ 下面就是你的共享文件夹了。</li>
+</ol>
+<ul>
+<li><strong>分享一个链接，一个命令大全：</strong><br><a href="https://www.centoschina.cn/" target="_blank" rel="noopener">https://www.centoschina.cn/</a></li>
+<li><strong>推荐书籍：</strong><br>《Linux命令行与shell脚本编程大全》</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+	<div>
+		
+	</div>
+	
+    
+
+    
+
+    <footer class="post-footer">
+
+   
+     <div>    
+      
+  </div>
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/05/线程基础知识/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2469,241 +2747,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/21/Java-8-新特性——lambda表达式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="雅客">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="雅客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/21/Java-8-新特性——lambda表达式/" itemprop="url">Java 8 新特性——lambda表达式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-21T16:00:42+08:00">
-                2018-04-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java基础/" itemprop="url" rel="index">
-                    <span itemprop="name">Java基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2018/04/21/Java-8-新特性——lambda表达式/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/2018/04/21/Java-8-新特性——lambda表达式/" class="cy_cmt_count" data-xid="2018/04/21/Java-8-新特性——lambda表达式/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2,052
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  8
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="什么是lambda表达式？"><a href="#什么是lambda表达式？" class="headerlink" title="什么是lambda表达式？"></a>什么是lambda表达式？</h4><p>1.lambda 表达式是一个可传递的代码块，可以在以后执行一次或者多次 —–&gt;《Java核心技术》<br>2.lambda 表达式是一个匿名函数</p>
-<h4 id="为什么使用lambda表达式？"><a href="#为什么使用lambda表达式？" class="headerlink" title="为什么使用lambda表达式？"></a>为什么使用lambda表达式？</h4><p>先看一个例子，这是一个典型的比较器，使用这个比较器可以对任意字符串按长度进行排序。</p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;<span class="keyword">String</span>&gt; com = <span class="keyword">new</span> Comparator&lt;<span class="keyword">String</span>&gt;() &#123;  </span><br><span class="line">@Override</span><br><span class="line"><span class="keyword">public</span> <span class="built_in">int</span> compare(<span class="keyword">String</span> first, <span class="keyword">String</span> <span class="built_in">second</span>) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> first.length()-<span class="built_in">second</span>.length();</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">String</span>[] <span class="built_in">str</span> = &#123;<span class="string">"saddsa"</span>, <span class="string">"sdadcsa"</span>,<span class="string">"rgeavrr"</span>, <span class="string">"csfdcwe"</span>&#125;;<span class="comment">//如果使用Arrays类中的sort()方法，只能按照字典顺序排序。假如想要对其</span></span><br><span class="line">                                                         <span class="comment">//按照长度排序，需要传入比较器</span></span><br><span class="line">Arrays.<span class="built_in">sort</span>(<span class="built_in">str</span>, com);</span><br></pre></td></tr></table></figure>
-<p>分析这段代码，其实我们不难发现，在执行排序方法的时候。compare() 方法并非只执行一次，在数组完成排序之前，sort() 方法会一直调用compare() 方法，只要元素的顺序不正确就会重新排列元素，将比较所需的 <em>代码块(s1.length()-s2.length())</em> 放在 sort() 方法中，与其他的排序逻辑集成然后完成排序。也就是是说，这里存在一个不断回调的过程。</p>
-<p>这么一分析，我们发现，真正参与排序逻辑的只是 <em>代码块(s1.length()-s2.length())</em> 罢了。也许我们会想，为什么不直接给 sort() 方法传递这个代码块，而需要给它传递一个 Comparator 实例呢？这样不会显得过于繁琐吗？实际上，在Java 8 之前，我们也只能这样去做，Java是面向对象的语言，假若我们需要传递某段代码块，必须构造一个对象，这个对象的类需要有一个方法包含所需的代码。难道就没有解决的办法了？当然不是！</p>
-<p>Java 8 推出了 lambda 表达式，能非常完美的解决这个问题，可以使代码变得更加简洁，灵活，优雅。(这时你可以思考一下Java语言为什么美？)</p>
-<p><em>废话不多说，直接上代码</em></p>
-<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">  //第一种方式</span><br><span class="line"> Comparator&lt;String&gt; com = (<span class="built_in">first</span>, <span class="built_in">second</span>) -&gt; <span class="built_in">first</span>.<span class="built_in">length</span>() - <span class="built_in">second</span>.<span class="built_in">length</span>();</span><br><span class="line"></span><br><span class="line"> String[] str = &#123;<span class="string">"saddsa"</span>, <span class="string">"sdadcsa"</span>,<span class="string">"rgeavrr"</span>, <span class="string">"csfdcwe"</span>&#125;;</span><br><span class="line"></span><br><span class="line"> Arrays.<span class="built_in">sort</span>(str, com);</span><br><span class="line"></span><br><span class="line"> //第二种方式</span><br><span class="line">Arrays.<span class="built_in">sort</span>(str, (<span class="built_in">first</span>, <span class="built_in">second</span>) -&gt; <span class="built_in">first</span>.<span class="built_in">length</span>() - <span class="built_in">second</span>.<span class="built_in">length</span>());</span><br></pre></td></tr></table></figure>
-<p> 看到没有，看到没有，这就是差距！你那么多废话，我一句就搞定，而且我效率还比你高，这就是强！<br> 现在，让我们一起进入 lambda表达式 的世界，请在开始之前想一想刚才我所说的：<em>lambda表达式传递的是代码块(函数)，请暂时忘掉对象</em></p>
-<h4 id="如何使用lambda表达式"><a href="#如何使用lambda表达式" class="headerlink" title="如何使用lambda表达式"></a>如何使用lambda表达式</h4><ol>
-<li>-&gt; :lambda 操作符，它将 lambda表达式 分为两个部分<br>&emsp;左侧：指定 lambda表达式 所需要的所有参数<br>&emsp;右侧：lambda表达式的主体，即 lambda表达式 要执行的功能</li>
-</ol>
-<ol start="2">
-<li>lambda表达式语法</li>
-</ol>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方式一</span></span><br><span class="line">Runnable r1 = () -&gt; System.<span class="keyword">out</span>.println(<span class="string">"Hello World"</span>);<span class="comment">//即使没有参数，也要提供括号</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//方式二</span></span><br><span class="line">Consumer&lt;String&gt; <span class="function"><span class="keyword">fun</span> = <span class="params">(args)</span></span> -&gt; System.<span class="keyword">out</span>.println(args);<span class="comment">//方法带参数，需要传入一个参数</span></span><br><span class="line">Consumer&lt;String&gt; <span class="function"><span class="keyword">fun</span> = args -&gt; System.<span class="keyword">out</span>.<span class="title">println</span><span class="params">(args)</span></span>;<span class="comment">//lambda 只需要一个参数时，参数的小括号可以省略</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//方式三</span></span><br><span class="line">BinaryOperator&lt;long&gt; bo = (x, y) -&gt; &#123;  <span class="comment">//lambda 需要两个参数，并且有返回值</span></span><br><span class="line">            System.<span class="keyword">out</span>.println(<span class="string">"实现接口"</span>);</span><br><span class="line">            <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;;</span><br><span class="line">BinaryOperator&lt;long&gt; bo = (long x, long y) -&gt; x + y;<span class="comment">//当lambda体只有一条语句时，return和大括号可以省略</span></span><br><span class="line"></span><br><span class="line">BinaryOperator&lt;long&gt; bo = ( x,  y) -&gt; x + y;<span class="comment">//类型可以省略，Java可以通过上下文推断得出，称为类型推断</span></span><br></pre></td></tr></table></figure>
-<h4 id="函数式接口——理解-lambda表达式的关键"><a href="#函数式接口——理解-lambda表达式的关键" class="headerlink" title="函数式接口——理解 lambda表达式的关键"></a>函数式接口——理解 lambda表达式的关键</h4><p>任何接口，如果只包含唯一一个抽象方法，那么它就是一个<a href="http://blog.csdn.net/zxhoo/article/details/38349011" target="_blank" rel="noopener">函数式接口</a><br>&emsp;注意：这里说函数式接口必须有一个抽象方法也许会使大家疑惑。我们会想接口中所有的方法不都是抽象的吗？<br>实际上，接口完全有可能重新    声明Object类的 toString， clone 等方法，这些声明有可能会让方法不再是抽象的。<br>不过，默认方法和静态方法不会破坏函数式接口的定义</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span><span class="comment">//该注解会强制检查该接口是不是一个函数式接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">FunctionalDefaultMethods</span> </span>&#123;</span><br><span class="line">             <span class="function"><span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>;</span><br><span class="line">             <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">defaultMethod</span><span class="params">()</span> </span>&#123;    <span class="comment">//允许默认方法        </span></span><br><span class="line">          &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>lambda表达式只支持函数式接口，因为lambda表达式到最后只能转换为函数式接口。其实就我个人理解而言，这是一种必要的转换，lambda表达式本来就是为了方便某个重复性的功能，使对象的概念弱化，凸显逻辑代码的地位(也就是代码块)。如果不是函数式接口，你弄他好几个方法，lambda表达式总不能一次性全部去执行吧，这在逻辑上也是行不通的。这纯属是我对函数式接口的个人理解，也许会有误，欢迎讨论。</p>
-<h4 id="方法引用与构造器引用"><a href="#方法引用与构造器引用" class="headerlink" title="方法引用与构造器引用"></a>方法引用与构造器引用</h4><p>前面说过，如果 lambda表达式 的代码块只有一条代码，可以省略花括号。同样的，你也可以使用方法引用和构造器引用。使用方法引用和构造器引用可以使代码阅读性更强，更简洁。</p>
-<ul>
-<li><strong>方法引用</strong>    <a href="http://www.cnblogs.com/JohnTsai/p/5806194.html" target="_blank" rel="noopener">戳一戳 1</a>   <a href="http://www.cnblogs.com/xiaoxi/p/7099667.html" target="_blank" rel="noopener">戳一戳 2</a><br>方法引用有四种情况(在Java核心技术中分为三种情况，这里我把构造器引用也归入方法引用之中，因为实际上构造器不也是方法嘛)<ol>
-<li>object::InstanceMethodName             引用对象的实例方法</li>
-<li>ClassName::staticMethodName         引用类的静态方法(普通类)</li>
-<li>Class::instanceMethodName              引用类型对象的实例方法(比如String)</li>
-<li>ClassName::new                                 引用构造方法         </li>
-</ol>
-</li>
-</ul>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Timer t = <span class="keyword">new</span> Timer(<span class="number">1000</span>, ele -&gt; System.out.<span class="built_in">println</span>(ele));<span class="comment">//添加一个定时器，每隔1秒打印一次 ele</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//使用方法引用可以写成（与上面的等价）</span></span><br><span class="line">Timer t = <span class="keyword">new</span> Timer(<span class="number">1000</span>, System.out::<span class="built_in">println</span>);<span class="comment">//直接将 println 方法传递给构造器</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">对字符串排序</span><br><span class="line">Arrays.<span class="built_in">sort</span>(<span class="built_in">str</span>, <span class="keyword">String</span>::compareToIgnoreCase);<span class="comment">//等价于 (x, y) -&gt; x.compareToIgnoreCase(y)</span></span><br><span class="line">                                                <span class="comment">//类似的 Math::pow 等价于 (x, y) -&gt; Math.pow(x, y);</span></span><br><span class="line"></span><br><span class="line">假如有多个重载的同名方法，编译器会尝试从上下文找出你指的那一个方法。不知不觉，Java又强势装逼一波。</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>构造器引用——主要与Stream结合使用</strong>：与方法引用类似，将方法名换为new。</li>
-</ul>
-<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//有一个字符串列表，将其转换为Person对象数组，需要在字符串上调用构造器</span></span><br><span class="line">ArrayList&lt;<span class="built_in">String</span>&gt; names = <span class="params">...</span>..;</span><br><span class="line">Stream&lt;Person&gt; stream = names.stream().<span class="built_in">map</span>(Person<span class="type">::new</span>);<span class="comment">//Person::new 是 Person构造器 的一个引用</span></span><br><span class="line"><span class="built_in">List</span>&lt;Person&gt; people = stream.collect(Collection.toList);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>数组也可以建立构造器引用</li>
-</ul>
-<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int[]:<span class="type"></span>:<span class="keyword">new</span> <span class="type"></span>等价于 x -&gt; <span class="keyword">new</span> <span class="type">int</span>[]</span><br><span class="line"></span><br><span class="line"><span class="comment">//将流中的对象转换为对象数组</span></span><br><span class="line">Person[] person = stream.toArray(Person[]:<span class="type"></span>:<span class="keyword">new</span><span class="type"></span>);</span><br></pre></td></tr></table></figure>
-<h4 id="处理lambda表达式"><a href="#处理lambda表达式" class="headerlink" title="处理lambda表达式"></a>处理lambda表达式</h4><p>通过上面的介绍，我们或许对lambda表达式有了进一步的理解，现在我们将学会怎样去使用lambda表达式。</p>
-<blockquote>
-<p>使用lambda表达式的重点是为了延迟执行，下面是使用lambda表达式的几个场景<br>    1.在一个单独的线程中运行代码<br>    2.多次运行代码<br>    3.在算法的适当位置运行代码（排序中的比较操作）<br>    4.发生某种情况时执行代码（点击按钮数据到达）</p>
-</blockquote>
-<p>其实，我们可以想一想，这些情况大多在哪里出现呢？想到排序，想到比较，这很容易让我们联想到集合和数组。嗯，就我现阶段的水平而言，或许我只能理解lambda表达式在集合和数组中给我带来的便利，但我想这也就足够了。</p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这就是一个比较常规的用法,可以把lambda表达式作为参数传递给方法，而且需要注意，lambda表达式的参数必须是一个函数式接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> repeat(<span class="keyword">int</span> n , Runnable action)&#123;</span><br><span class="line">    <span class="built_in">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; n; i++)</span><br><span class="line">    action.<span class="built_in">run</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">repeat(<span class="number">10</span>, () -&gt; System.out.<span class="built_in">println</span>(<span class="string">"Hello, world"</span>));</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-	<div>
-		
-	</div>
-	
-    
-
-    
-
-    <footer class="post-footer">
-
-   
-     <div>    
-      
-  </div>
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2758,7 +2801,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2769,7 +2812,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2780,7 +2823,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/about/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2850,7 +2893,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">31.7k</span>
+    <span title="Site words total count">33.5k</span>
   
 </div>
 
@@ -2877,7 +2920,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共31.7k字</span>
+  <span class="post-count">博客全站共33.5k字</span>
 </div>
 
 
